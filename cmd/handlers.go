@@ -8,8 +8,11 @@ import (
 	"net/http"
 )
 
+// Faire structure ici pour image et id de l'artist
+
 type Artist struct {
 	Id           int      `json:"id"`
+	Image        string   `json:"image"`
 	Name         string   `json:"name"`
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
@@ -37,18 +40,20 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func Api(w http.ResponseWriter, r *http.Request) {
-	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/1")
+	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
 		fmt.Println(err)
 	}
 	data, err := ioutil.ReadAll(get.Body)
-	var artist Artist
+	var artist []Artist
 	err = json.Unmarshal(data, &artist)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("name : ", artist.Name)
-	fmt.Println("Creation : ", artist.CreationDate)
-	fmt.Println("members : ", artist.Members)
+	for _, values := range artist {
+		fmt.Println(values.Id, values.Image)
+		json.NewEncoder(w).Encode(values.Id)
+		json.NewEncoder(w).Encode(values.Image)
+	}
 }
