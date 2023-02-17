@@ -12,11 +12,11 @@ import (
 
 type ImageID struct {
 	Id    int    `json:"id"`
+	Name  string `json:"name"`
 	Image string `json:"image"`
 }
 
-type Artist struct {
-	Name         string   `json:"name"`
+type ArtistInformation struct {
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
