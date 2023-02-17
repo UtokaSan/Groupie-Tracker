@@ -25,7 +25,17 @@ type ArtistInformation struct {
 	Relations    string   `json:"relations"`
 }
 
-type Location struct {
+type DatesLocation struct {
+	LocationAndDate []string `json:"dateLocation"`
+}
+
+type IndexLocationItem struct {
+	Id            int `json:"id"`
+	DatesLocation []DatesLocation
+}
+
+type IndexLocationAllItem struct {
+	IndexLocationItem []IndexLocationItem
 }
 
 type Dates struct {
@@ -42,6 +52,19 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		/*data, _ := ioutil.ReadAll(r.Body)
 		request := string(data)
 		fmt.Println(request)*/
+		if err != nil {
+			fmt.Println(err)
+		}
+		t.Execute(w, r)
+	}
+}
+
+func ArtistInfo(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/artistinfo" {
+		errorHandler(w, r, http.StatusNotFound)
+	} else {
+		t, err := template.ParseFiles("templates/ArtistInfo")
+
 		if err != nil {
 			fmt.Println(err)
 		}
