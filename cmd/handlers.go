@@ -10,9 +10,12 @@ import (
 
 // Faire structure ici pour image et id de l'artist
 
+type ImageID struct {
+	Id    int    `json:"id"`
+	Image string `json:"image"`
+}
+
 type Artist struct {
-	Id           int      `json:"id"`
-	Image        string   `json:"image"`
 	Name         string   `json:"name"`
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
@@ -32,11 +35,18 @@ type Relation struct {
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("templates/index.html")
-	if err != nil {
-		fmt.Println(err)
+	if r.URL.Path != "/" {
+		errorHandler(w, r, http.StatusNotFound)
+	} else {
+		t, err := template.ParseFiles("templates/index.html")
+		/*data, _ := ioutil.ReadAll(r.Body)
+		request := string(data)
+		fmt.Println(request)*/
+		if err != nil {
+			fmt.Println(err)
+		}
+		t.Execute(w, r)
 	}
-	t.Execute(w, r)
 }
 
 func Api(w http.ResponseWriter, r *http.Request) {
@@ -45,15 +55,26 @@ func Api(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	data, err := ioutil.ReadAll(get.Body)
-	var artist []Artist
+	var artist []ImageID
 	err = json.Unmarshal(data, &artist)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	for _, values := range artist {
-		fmt.Println(values.Id, values.Image)
-		json.NewEncoder(w).Encode(values.Id)
-		json.NewEncoder(w).Encode(values.Image)
+		json.NewEncoder(w).Encode(values)
+		fmt.Println(values)
+	}
+}
+
+func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
+	w.WriteHeader(status)
+	if status == http.StatusNotFound {
+		t, err := template.ParseFiles("./hangman-web/templates/404" + ".html")
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			t.Execute(w, r)
+		}
 	}
 }
