@@ -8,10 +8,15 @@ import (
 	"net/http"
 )
 
-// Faire structure ici pour image et id de l'artist
+/**
+Faire structure :
+Locations
+ConcertDates
+Relations
+*/
 
 type ImageID struct {
-	Id    int    `json:"id"`
+	ID    int    `json:"id"`
 	Name  string `json:"name"`
 	Image string `json:"image"`
 }
@@ -20,33 +25,22 @@ type ArtistInformation struct {
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
-	/**
-	Locations    string   `json:"locations"`
-	ConcertDates string   `json:"concertDates"`
-	Relations    string   `json:"relations"`
-	*/
 }
 
-type DatesLocation struct {
-	LocationAndDate []string `json:"dateLocation"`
+type Location struct {
+	ID        int      `json:"id"`
+	Locations []string `json:"locations"`
+	Dates     string   `json:"dates"`
 }
-
-type IndexLocationItem struct {
-	Id            int `json:"id"`
-	DatesLocation []DatesLocation
-}
-
-type IndexLocationAllItem struct {
-	IndexLocationItem []IndexLocationItem
-}
-
 type Dates struct {
 }
 
-type Relation struct {
+type Relations struct {
+	ID             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
-func Index(w http.ResponseWriter, r *http.Request) {
+func IndexHandlers(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		errorHandler(w, r, http.StatusNotFound)
 	} else {
@@ -73,8 +67,8 @@ func ArtistInfo(w http.ResponseWriter, r *http.Request) {
 	}
 	data, _ := ioutil.ReadAll(r.Body)
 	input := string(data)[6 : len(data)-1]
-	println(input)
 	InformationArtist(w, input)
+	InformationLocation(w, input)
 }
 
 func InformationArtist(w http.ResponseWriter, id string) {
@@ -90,7 +84,23 @@ func InformationArtist(w http.ResponseWriter, id string) {
 		return
 	}
 	json.NewEncoder(w).Encode(artistInformation)
-	fmt.Println(artistInformation)
+	fmt.Println(artistInformation.Members)
+}
+func InformationLocation(w http.ResponseWriter, id string) {
+	get, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/" + id)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	data, err := ioutil.ReadAll(get.Body)
+	var artistLocations Location
+	err = json.Unmarshal(data, &artistLocations)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	json.NewEncoder(w).Encode(artistLocations)
+	fmt.Println(artistLocations.Locations)
 }
 
 func Api(w http.ResponseWriter, r *http.Request) {
