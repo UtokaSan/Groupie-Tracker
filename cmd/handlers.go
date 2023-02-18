@@ -20,9 +20,11 @@ type ArtistInformation struct {
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
+	/**
 	Locations    string   `json:"locations"`
 	ConcertDates string   `json:"concertDates"`
 	Relations    string   `json:"relations"`
+	*/
 }
 
 type DatesLocation struct {
@@ -63,13 +65,32 @@ func ArtistInfo(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/artistinfo" {
 		errorHandler(w, r, http.StatusNotFound)
 	} else {
-		t, err := template.ParseFiles("templates/ArtistInfo")
-
+		t, err := template.ParseFiles("templates/artistinfo.html")
 		if err != nil {
 			fmt.Println(err)
 		}
 		t.Execute(w, r)
 	}
+	data, _ := ioutil.ReadAll(r.Body)
+	input := string(data)[6 : len(data)-1]
+	println(input)
+	InformationArtist(w, input)
+}
+
+func InformationArtist(w http.ResponseWriter, id string) {
+	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + id)
+	if err != nil {
+		fmt.Println(err)
+	}
+	data, err := ioutil.ReadAll(get.Body)
+	var artistInformation ArtistInformation
+	err = json.Unmarshal(data, &artistInformation)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	json.NewEncoder(w).Encode(artistInformation)
+	fmt.Println(artistInformation)
 }
 
 func Api(w http.ResponseWriter, r *http.Request) {
