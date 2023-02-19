@@ -64,13 +64,13 @@ func ArtistInfo(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Println(err)
 		}
+		data, _ := ioutil.ReadAll(r.Body)
+		input := string(data)[6 : len(data)-1]
+		InformationArtist(w, input)
+		InformationLocation(w, input)
+		InformationDate(w, input)
 		t.Execute(w, r)
 	}
-	data, _ := ioutil.ReadAll(r.Body)
-	input := string(data)[6 : len(data)-1]
-	InformationArtist(w, input)
-	InformationLocation(w, input)
-	InformationDate(w, input)
 }
 
 func InformationArtist(w http.ResponseWriter, id string) {
@@ -144,7 +144,7 @@ func Api(w http.ResponseWriter, r *http.Request) {
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	w.WriteHeader(status)
 	if status == http.StatusNotFound {
-		t, err := template.ParseFiles("./hangman-web/templates/404" + ".html")
+		t, err := template.ParseFiles("templates/404" + ".html")
 		if err != nil {
 			fmt.Println(err)
 		} else {
