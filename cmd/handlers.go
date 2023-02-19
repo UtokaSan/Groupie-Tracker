@@ -30,9 +30,10 @@ type ArtistInformation struct {
 type Location struct {
 	ID        int      `json:"id"`
 	Locations []string `json:"locations"`
-	Dates     string   `json:"dates"`
 }
 type Dates struct {
+	ID    int      `json:"id"`
+	Dates []string `json:"dates"`
 }
 
 type Relations struct {
@@ -69,6 +70,7 @@ func ArtistInfo(w http.ResponseWriter, r *http.Request) {
 	input := string(data)[6 : len(data)-1]
 	InformationArtist(w, input)
 	InformationLocation(w, input)
+	InformationDate(w, input)
 }
 
 func InformationArtist(w http.ResponseWriter, id string) {
@@ -84,8 +86,9 @@ func InformationArtist(w http.ResponseWriter, id string) {
 		return
 	}
 	json.NewEncoder(w).Encode(artistInformation)
-	fmt.Println(artistInformation.Members)
+	fmt.Println(artistInformation)
 }
+
 func InformationLocation(w http.ResponseWriter, id string) {
 	get, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/" + id)
 	if err != nil {
@@ -100,7 +103,24 @@ func InformationLocation(w http.ResponseWriter, id string) {
 		return
 	}
 	json.NewEncoder(w).Encode(artistLocations)
-	fmt.Println(artistLocations.Locations)
+	fmt.Println(artistLocations)
+}
+
+func InformationDate(w http.ResponseWriter, id string) {
+	get, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/" + id)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	data, err := ioutil.ReadAll(get.Body)
+	var artistDates Dates
+	err = json.Unmarshal(data, &artistDates)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	json.NewEncoder(w).Encode(artistDates)
+	fmt.Println(artistDates)
 }
 
 func Api(w http.ResponseWriter, r *http.Request) {
