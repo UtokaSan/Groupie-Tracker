@@ -41,6 +41,21 @@ type Relations struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
+// Faire en sorte qu'il récupère le nom de l'artiste et le donne à la fonction qui fais une requete à l'api lastfm
+type Tag struct {
+	Count int    `json:"count"`
+	Name  string `json:"name"`
+	URL   string `json:"url"`
+}
+
+type Toptags struct {
+	Tag []Tag `json:"tag"`
+}
+
+type QueenTags struct {
+	Toptags Toptags `json:"toptags"`
+}
+
 func IndexHandlers(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		errorHandler(w, r, http.StatusNotFound)
@@ -61,14 +76,14 @@ func ArtistInfo(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 	} else {
 		t, err := template.ParseFiles("templates/artistinfo.html")
-		if err != nil {
-			fmt.Println(err)
-		}
 		data, _ := ioutil.ReadAll(r.Body)
 		input := string(data)[6 : len(data)-1]
 		InformationArtist(w, input)
 		InformationLocation(w, input)
 		InformationDate(w, input)
+		if err != nil {
+			fmt.Println(err)
+		}
 		t.Execute(w, r)
 	}
 }
@@ -87,6 +102,23 @@ func InformationArtist(w http.ResponseWriter, id string) {
 	}
 	json.NewEncoder(w).Encode(artistInformation)
 	fmt.Println(artistInformation)
+}
+
+func InformationArtistTag(w http.ResponseWriter, name string) {
+	apikey := "471f5119aa12d32718ae05f982f745dc"
+	get, err := http.Get("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist=" + name + "&api_key=" + apikey + "&format=json")
+	if err != nil {
+		fmt.Println(err)
+	}
+	data, err := ioutil.ReadAll(get.Body)
+	var artistTopTags QueenTags
+	err = json.Unmarshal(data, &artistTopTags)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	json.NewEncoder(w).Encode(artistTopTags.Toptags.Tag[0].Name)
+	fmt.Println(artistTopTags.Toptags.Tag[0].Name)
 }
 
 func InformationLocation(w http.ResponseWriter, id string) {
