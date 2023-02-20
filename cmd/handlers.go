@@ -52,7 +52,7 @@ type Toptags struct {
 	Tag []Tag `json:"tag"`
 }
 
-type QueenTags struct {
+type AllTags struct {
 	Toptags Toptags `json:"toptags"`
 }
 
@@ -111,7 +111,7 @@ func InformationArtistTag(w http.ResponseWriter, name string) {
 		fmt.Println(err)
 	}
 	data, err := ioutil.ReadAll(get.Body)
-	var artistTopTags QueenTags
+	var artistTopTags AllTags
 	err = json.Unmarshal(data, &artistTopTags)
 	if err != nil {
 		fmt.Println(err)
