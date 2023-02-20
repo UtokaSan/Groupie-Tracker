@@ -20,6 +20,7 @@ type ImageID struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
 	Image string `json:"image"`
+	Genre string
 }
 
 type ArtistInformation struct {
@@ -107,7 +108,7 @@ func InformationArtist(w http.ResponseWriter, id string) {
 	fmt.Println(artistInformation)
 }
 
-func InformationArtistTag(w http.ResponseWriter, name string) {
+func InformationArtistTag(name string) string {
 	apikey := "471f5119aa12d32718ae05f982f745dc"
 	escapeName := url.QueryEscape(name)
 	get, err := http.Get("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist=" + escapeName + "&api_key=" + apikey + "&format=json")
@@ -119,13 +120,12 @@ func InformationArtistTag(w http.ResponseWriter, name string) {
 	err = json.Unmarshal(data, &artistTopTags)
 	if err != nil {
 		fmt.Println(err)
-		return
 	}
 	if len(artistTopTags.Toptags.Tag[0].Name) > 0 {
 		artistGenre := artistTopTags.Toptags.Tag[0].Name
-		fmt.Println(artistGenre)
-		json.NewEncoder(w).Encode(artistGenre)
+		return artistGenre
 	}
+	return "bad"
 }
 
 func InformationLocation(w http.ResponseWriter, id string) {
@@ -174,11 +174,10 @@ func Api(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
-	for _, values := range artist {
-		json.NewEncoder(w).Encode(values)
-		fmt.Println(values)
-		InformationArtistTag(w, values.Name)
+	for i, _ := range artist {
+		artist[i].Genre = InformationArtistTag(artist[i].Name)
 	}
+	json.NewEncoder(w).Encode(artist)
 }
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
