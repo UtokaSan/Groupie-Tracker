@@ -57,9 +57,6 @@ func IndexHandlers(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 	} else {
 		t, err := template.ParseFiles("templates/index.html")
-		/*data, _ := ioutil.ReadAll(r.Body)
-		request := string(data)
-		fmt.Println(request)*/
 		if err != nil {
 			fmt.Println(err)
 		}
