@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 )
 
 /**
@@ -55,6 +56,8 @@ type Toptags struct {
 type AllTags struct {
 	Toptags Toptags `json:"toptags"`
 }
+
+var artistGenre ImageID
 
 func IndexHandlers(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
@@ -106,7 +109,8 @@ func InformationArtist(w http.ResponseWriter, id string) {
 
 func InformationArtistTag(w http.ResponseWriter, name string) {
 	apikey := "471f5119aa12d32718ae05f982f745dc"
-	get, err := http.Get("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist=" + name + "&api_key=" + apikey + "&format=json")
+	escapeName := url.QueryEscape(name)
+	get, err := http.Get("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist=" + escapeName + "&api_key=" + apikey + "&format=json")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -117,8 +121,11 @@ func InformationArtistTag(w http.ResponseWriter, name string) {
 		fmt.Println(err)
 		return
 	}
-	json.NewEncoder(w).Encode(artistTopTags.Toptags.Tag[0].Name)
-	fmt.Println(artistTopTags.Toptags.Tag[0].Name)
+	if len(artistTopTags.Toptags.Tag[0].Name) > 0 {
+		artistGenre := artistTopTags.Toptags.Tag[0].Name
+		fmt.Println(artistGenre)
+		json.NewEncoder(w).Encode(artistGenre)
+	}
 }
 
 func InformationLocation(w http.ResponseWriter, id string) {
@@ -170,6 +177,7 @@ func Api(w http.ResponseWriter, r *http.Request) {
 	for _, values := range artist {
 		json.NewEncoder(w).Encode(values)
 		fmt.Println(values)
+		InformationArtistTag(w, values.Name)
 	}
 }
 
