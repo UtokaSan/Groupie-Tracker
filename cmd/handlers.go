@@ -9,13 +9,6 @@ import (
 	"net/url"
 )
 
-/**
-Faire structure :
-Locations
-ConcertDates
-Relations
-*/
-
 type ImageID struct {
 	ID    int    `json:"id"`
 	Name  string `json:"name"`
@@ -43,7 +36,6 @@ type Relations struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
-// Faire en sorte qu'il récupère le nom de l'artiste et le donne à la fonction qui fais une requete à l'api lastfm
 type Tag struct {
 	Count int    `json:"count"`
 	Name  string `json:"name"`
