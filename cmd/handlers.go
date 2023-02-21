@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
+	"strings"
 )
 
 type ImageID struct {
@@ -50,8 +52,6 @@ type AllTags struct {
 	Toptags Toptags `json:"toptags"`
 }
 
-var artistGenre ImageID
-
 func IndexHandlers(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		errorHandler(w, r, http.StatusNotFound)
@@ -62,6 +62,8 @@ func IndexHandlers(w http.ResponseWriter, r *http.Request) {
 		}
 		t.Execute(w, r)
 	}
+	data, _ := ioutil.ReadAll(r.Body)
+	fmt.Println(data)
 }
 
 func ArtistInfo(w http.ResponseWriter, r *http.Request) {
@@ -166,7 +168,45 @@ func Api(w http.ResponseWriter, r *http.Request) {
 	for i, _ := range artist {
 		artist[i].Genre = InformationArtistTag(artist[i].Name)
 	}
+	for i, _ := range artist {
+		if strings.Contains(artist[i].Genre, "rock") {
+			RockArtist(w, strconv.Itoa(artist[i].ID))
+		} else if strings.Contains(artist[i].Genre, "Hip-Hop") {
+			HipHopArtist(w, strconv.Itoa(artist[i].ID))
+		}
+	}
 	json.NewEncoder(w).Encode(artist)
+}
+
+func RockArtist(w http.ResponseWriter, rockId string) {
+	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + rockId)
+	if err != nil {
+		fmt.Println(err)
+	}
+	data, err := ioutil.ReadAll(get.Body)
+	fmt.Println(string(data))
+	var artist []ImageID
+	err = json.Unmarshal(data, &artist)
+	if err != nil {
+		fmt.Println(err)
+	}
+	json.NewEncoder(w).Encode(artist)
+	fmt.Println(artist)
+}
+func HipHopArtist(w http.ResponseWriter, rockId string) {
+	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + rockId)
+	if err != nil {
+		fmt.Println(err)
+	}
+	data, err := ioutil.ReadAll(get.Body)
+	fmt.Println(string(data))
+	var artist []ImageID
+	err = json.Unmarshal(data, &artist)
+	if err != nil {
+		fmt.Println(err)
+	}
+	json.NewEncoder(w).Encode(artist)
+	fmt.Println(artist)
 }
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
