@@ -18,7 +18,7 @@ body {
     width: 100%;
     height: 100vh;
     font-family: 'assc';
-    background-image: url('./Groupie TRaker/Groupie-Tracker/templates/img/menu.jpg');
+    background-image: url('./Groupie-Tracker/templates/img/menu.jpg');
     color: #DD3B2D;
     overflow: hidden;
 }
