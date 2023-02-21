@@ -62,8 +62,6 @@ func IndexHandlers(w http.ResponseWriter, r *http.Request) {
 		}
 		t.Execute(w, r)
 	}
-	data, _ := ioutil.ReadAll(r.Body)
-	fmt.Println(data)
 }
 
 func ArtistInfo(w http.ResponseWriter, r *http.Request) {
