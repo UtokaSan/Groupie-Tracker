@@ -92,28 +92,28 @@ ul {
 }
 
 .swiper-slide:nth-child(1) .slide-img {
-    background-image: url('./Groupie TRaker/Groupie-Tracker/templates/img/01.jpg');
+    background-image: url('./Groupie-Tracker/templates/img/01.jpg');
 }
 .swiper-slide:nth-child(2) .slide-img {
-    background-image: url('./Groupie TRaker/Groupie-Tracker/templates/img/02.jpg');
+    background-image: url('.//Groupie-Tracker/templates/img/02.jpg');
 }
 .swiper-slide:nth-child(3) .slide-img {
-    background-image: url('./Groupie TRaker/Groupie-Tracker/templates/img/03.jpg');
+    background-image: url('./Groupie-Tracker/templates/img/03.jpg');
 }
 .swiper-slide:nth-child(4) .slide-img {
-    background-image: url('./Groupie TRaker/Groupie-Tracker/templates/img/04.jpg');
+    background-image: url('./Groupie-Tracker/templates/img/04.jpg');
 }
 .swiper-slide:nth-child(5) .slide-img {
-    background-image: url('./Groupie TRaker/Groupie-Tracker/templates/img/05.jpg');
+    background-image: url('.//Groupie-Tracker/templates/img/05.jpg');
 }
 .swiper-slide:nth-child(6) .slide-img {
-    background-image: url('./Groupie TRaker/Groupie-Tracker/templates/img/05.jpg');
+    background-image: url('./Groupie-Tracker/templates/img/05.jpg');
 }
 swiper-slide:nth-child(7) .slide-img {
-    background-image: url('./Groupie TRaker/Groupie-Tracker/templates/img/01.jpg');
+    background-image: url('./Groupie-Tracker/templates/img/01.jpg');
 }
 swiper-slide:nth-child(8) .slide-img {
-    background-image: url('./Groupie TRaker/Groupie-Tracker/templates/img/01.jpg');
+    background-image: url('./Groupie-Tracker/templates/img/01.jpg');
 }
 .slide-img {
     background-position: 50%;
