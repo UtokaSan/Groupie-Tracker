@@ -11,47 +11,6 @@ import (
 	"strings"
 )
 
-type ImageID struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Image string `json:"image"`
-	Genre string
-}
-
-type ArtistInformation struct {
-	Members      []string `json:"members"`
-	CreationDate int      `json:"creationDate"`
-	FirstAlbum   string   `json:"firstAlbum"`
-}
-
-type Location struct {
-	ID        int      `json:"id"`
-	Locations []string `json:"locations"`
-}
-type Dates struct {
-	ID    int      `json:"id"`
-	Dates []string `json:"dates"`
-}
-
-type Relations struct {
-	ID             int                 `json:"id"`
-	DatesLocations map[string][]string `json:"datesLocations"`
-}
-
-type Tag struct {
-	Count int    `json:"count"`
-	Name  string `json:"name"`
-	URL   string `json:"url"`
-}
-
-type Toptags struct {
-	Tag []Tag `json:"tag"`
-}
-
-type AllTags struct {
-	Toptags Toptags `json:"toptags"`
-}
-
 func IndexHandlers(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		errorHandler(w, r, http.StatusNotFound)
@@ -86,9 +45,9 @@ func InformationArtist(w http.ResponseWriter, id string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	data, err := ioutil.ReadAll(get.Body)
+	resp, err := ioutil.ReadAll(get.Body)
 	var artistInformation ArtistInformation
-	err = json.Unmarshal(data, &artistInformation)
+	err = json.Unmarshal(resp, &artistInformation)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -104,9 +63,9 @@ func InformationArtistTag(name string) string {
 	if err != nil {
 		fmt.Println(err)
 	}
-	data, err := ioutil.ReadAll(get.Body)
+	resp, err := ioutil.ReadAll(get.Body)
 	var artistTopTags AllTags
-	err = json.Unmarshal(data, &artistTopTags)
+	err = json.Unmarshal(resp, &artistTopTags)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -123,9 +82,9 @@ func InformationLocation(w http.ResponseWriter, id string) {
 		fmt.Println(err)
 		return
 	}
-	data, err := ioutil.ReadAll(get.Body)
+	resp, err := ioutil.ReadAll(get.Body)
 	var artistLocations Location
-	err = json.Unmarshal(data, &artistLocations)
+	err = json.Unmarshal(resp, &artistLocations)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -140,9 +99,9 @@ func InformationDate(w http.ResponseWriter, id string) {
 		fmt.Println(err)
 		return
 	}
-	data, err := ioutil.ReadAll(get.Body)
+	resp, err := ioutil.ReadAll(get.Body)
 	var artistDates Dates
-	err = json.Unmarshal(data, &artistDates)
+	err = json.Unmarshal(resp, &artistDates)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -151,14 +110,17 @@ func InformationDate(w http.ResponseWriter, id string) {
 	fmt.Println(artistDates)
 }
 
-func Api(w http.ResponseWriter, r *http.Request) {
+func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
 		fmt.Println(err)
 	}
-	data, err := ioutil.ReadAll(get.Body)
+	resp, err := ioutil.ReadAll(get.Body)
+	data, _ := ioutil.ReadAll(r.Body)
+	input := string(data)[8 : len(data)-2]
+	fmt.Println(input)
 	var artist []ImageID
-	err = json.Unmarshal(data, &artist)
+	err = json.Unmarshal(resp, &artist)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -167,13 +129,12 @@ func Api(w http.ResponseWriter, r *http.Request) {
 		artist[i].Genre = InformationArtistTag(artist[i].Name)
 	}
 	for i, _ := range artist {
-		if strings.Contains(artist[i].Genre, "rock") {
+		if strings.Contains(artist[i].Genre, "rock") && input == "rock" {
 			RockArtist(w, strconv.Itoa(artist[i].ID))
-		} else if strings.Contains(artist[i].Genre, "Hip-Hop") {
+		} else if strings.Contains(artist[i].Genre, "Hip-Hop") && input == "Hip-Hop" {
 			HipHopArtist(w, strconv.Itoa(artist[i].ID))
 		}
 	}
-	json.NewEncoder(w).Encode(artist)
 }
 
 func RockArtist(w http.ResponseWriter, rockId string) {
@@ -189,7 +150,6 @@ func RockArtist(w http.ResponseWriter, rockId string) {
 		fmt.Println(err)
 	}
 	json.NewEncoder(w).Encode(artist)
-	fmt.Println(artist)
 }
 func HipHopArtist(w http.ResponseWriter, rockId string) {
 	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + rockId)
@@ -204,7 +164,6 @@ func HipHopArtist(w http.ResponseWriter, rockId string) {
 		fmt.Println(err)
 	}
 	json.NewEncoder(w).Encode(artist)
-	fmt.Println(artist)
 }
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {

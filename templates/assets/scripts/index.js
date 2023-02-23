@@ -1,3 +1,32 @@
+const test = document.querySelector(".test")
+const myForm = document.querySelector("#myForm");
+
+test.addEventListener("click", function() {
+    const formData = new FormData(myForm);
+
+    // Envoyez une requête POST
+    const data = {
+        name: "rock"
+    };
+
+    // Envoyez une requête POST
+    fetch("/api", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Redirigez l'utilisateur vers une nouvelle page
+            window.location.replace("/artistinfo");
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
 var slider = new Swiper(".swiper-container", {
     slidesPerView: 'auto',
     spaceBetween: 150,
