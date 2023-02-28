@@ -3,162 +3,193 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>groupie tracker</title>
-    <!-- swiper css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.css">
-    <!-- font awesome -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- css -->
-    <link rel="stylesheet" href="assets/styles/index.css">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-
+<header>
+    <nav class="navbar">
+        <span></span>
+        <div class="logo">Menu</div>
+        <ul class="menu">
+            <li><a href="#">Github</a></li>
+            <li><a href="#">instagram</a></li>
+        </ul>
+    </nav>
+</header>
 
 <div class="wrapper">
-
-    <!-- NAVBAR
-    =============================== -->
-    <nav class="navbar">
-        <div class="menu">
-            <i class="fa fa-bars"></i> menu
+    <section class="video-section">
+        <div class="video-container">
+            <video src="./media/flower.mp4" autoplay loop muted></video>
+        </div>
+        <div class="img-container">
+            <img src="./media/window.png" alt="" class="img">
         </div>
 
-        <div class="logo">groupie tracker</div>
-
-        <div class="media">
-            <ul>
-                <li><a href="#">fb</a></li>
-                <li><a href="#">ig</a></li>
-                <li><a href="#">tw</a></li>
-            </ul>
+        <div class="text-content">
+            <div class="img_txt">
+                <div class="title sm left">
+                    <span>project</span>
+                </div>
+                <div class="title bg left">
+                    <span>Groupie</span>
+                </div>
+                <div class="title bg right n">
+                    <span>&</span>
+                </div>
+                <div class="title bg right">
+                    <span>Tracker</span>
+                </div>
+            </div>
+            <p class="txt-bottom">
+                a creation of Maxime Poiret is Florian boulbes
+            </p>
         </div>
-    </nav>
 
-    <!-- BG TEXT
-    =============================== -->
-    <div class="bg-text">
-        <h1>GROUPIETRACKER</h1>
-    </div>
-
-    <!-- SLIDER
-    =============================== -->
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <!-- <form action = "/artistinfo" method = "POST" id = "send-form-post"> -->
-            <div class="swiper-slide">
-                <div class="slide-number">
-                    <p><span>001</span></p>
+        <div class="v_container">
+            <div class="left-side">
+                <div class="tv">
+                    <div class="bg">Groupie</div>
+                    <div class="sm">the</div>
+                    <div class="bg bottom">Tracker</div>
                 </div>
-                <div class="slide-text">
-                    <h4><span>POP</span></h4>
+                <div class="text-container">
+                    <p>
+                        Welcome to our groupie tracker
+                        project based on a music api we hope you enjoy the adventure
+                        .
+                    </p>
                 </div>
-                <div class="slide-img"></div>
             </div>
-
-            <div class="swiper-slide">
-                <div class="slide-number">
-                    <p><span>002</span></p>
-                </div>
-                <div class="slide-text">
-                    <h4><span>ROCK</span></h4>
-                </div>
-                <div class="slide-img"></div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="slide-number">
-                    <p><span>003</span></p>
-                </div>
-                <div class="slide-text">
-                    <h4><span>METAL</span></h4>
-                </div>
-                <div class="slide-img"></div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="slide-number">
-                    <p><span>004</span></p>
-                </div>
-                <div class="slide-text">
-                    <h4><span>INDIE</span></h4>
-                </div>
-                <div class="slide-img"></div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="slide-number">
-                    <p><span>005</span></p>
-                </div>
-                <div class="slide-text">
-                    <h4><span>HIP HOP</span></h4>
-                </div>
-                <div class="slide-img"></div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="slide-number">
-                    <p><span>006</span></p>
-                </div>
-                <div class="slide-text">
-                    <h4><span>JAZZ</span></h4>
-                </div>
-                <div class="slide-img"></div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="slide-number">
-                    <p><span>007</span></p>
-                </div>
-                <div class="slide-text">
-                    <h4><span>GRUNGE</span></h4>
-                </div>
-                <div class="slide-img"></div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="slide-number">
-                    <p><span>007</span></p>
-                </div>
-                <div class="slide-text">
-                    <h4><span>HOUSE</span></h4>
-                </div>
-                <div class="slide-img"></div>
+            <div class="right-side">
+                <p>explore works <i class="fa-solid fa-arrow-right-long"></i></p>
             </div>
         </div>
-    </div>
-
-
-    <!-- FOOTER
-    =============================== -->
-    <footer class="footer">
-        <div class="footer-wrapper">
-            <div class="share">
-                <p>created by Maxime Poiret is Florian Boulbes</p>
+    </section>
+    <section class="section">
+        <div class="boxes-container">
+            <div class="columns box1">
+                <div class="col col-1">
+                    <img src="./media/1.jpg" alt="">
+                    <img src="./media/2.jpg" alt="">
+                </div>
+                <div class="col-2">
+                    <h1>Hip Hop</h1>
+                    <span>1977</span>
+                    <div class="line"></div>
+                    <div class="text-box">
+                        <p>
+                            Hip hop music, also known as rap and formerly known as disco rap,
+                        </p>
+                        <p>
+                            Is a genre of popular music that originated in New York City in the 1970s.
+                        </p>
+                    </div>
+                </div>
+                <div class="col col-3">
+                    <img src="./media/3.jpg" alt="">
+                    <img src="./media/4.jpg" alt="">
+                    <img src="./media/5.jpg" alt="">
+                </div>
             </div>
-            <div class="more">
-                <p>menu project</p>
+            <div class="columns box2">
+                <div class="col col-1">
+                    <img src="./media/p1.jpg" alt="">
+                    <img src="./media/p2.jpg" alt="">
+                </div>
+                <div class="col-2">
+                    <h1>Metal</h1>
+                    <span>1969~1974</span>
+                    <div class="line"></div>
+                    <div class="text-box">
+                        <p>
+                            Metal is a genre of rock music that developed in the late 1960s and early 1970s, largely in the United Kingdom and United States.
+                        </p>
+                        <p>
+                            With roots in blues rock, psychedelic rock and acid rock, heavy metal bands developed a thick,
+                            monumental sound characterized by distorted guitars, extended guitar solos, emphatic beats and loudness.
+                        </p>
+                    </div>
+                </div>
+                <div class="col col-3">
+                    <img src="./media/p3.jpg" alt="">
+                    <img src="./media/p4.jpg" alt="">
+                    <img src="./media/p5.jpg" alt="">
+                </div>
             </div>
-            <div class="scroll">
-                <p>scroll</p>
+            <div class="columns box3">
+                <div class="col col-1">
+                    <img src="./media/b1.jpg" alt="">
+                    <img src="./media/b2.jpg" alt="">
+                    <img src="./media/b3.jpg" alt="">
+                    <img src="./media/b4.jpg" alt="">
+                </div>
+                <div class="col-2">
+                    <h1>Pop vibes</h1>
+                    <span>1950~1960</span>
+                    <div class="line"></div>
+                    <div class="text-box">
+                        <p>
+
+                            Pop songs are usually about love or romantic relationships.
+                            This genre often focuses on an idea of accessibility,
+
+                        </p>
+                        <p>
+
+                            emphasizing catchy, catchy melodies, and often taking the form of short pieces with rhythms associated with dance.
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col col-3">
+                    <img src="./media/b5.jpg" alt="">
+                </div>
             </div>
         </div>
-    </footer>
-
+        <div class="columns box2">
+            <div class="col col-1">
+                <img src="./media/p9.jpg" alt="">
+                <img src="./media/p10.jpg" alt="">
+            </div>
+            <div class="col-2">
+                <h1>RAP</h1>
+                <span>1979</span>
+                <div class="line"></div>
+                <div class="text-box">
+                    <p>
+                        Metal is a genre of rock music that developed in the late 1960s and early 1970s, largely in the United Kingdom and United States.
+                    </p>
+                    <p>
+                        With roots in blues rock, psychedelic rock and acid rock, heavy metal bands developed a thick,
+                        monumental sound characterized by distorted guitars, extended guitar solos, emphatic beats and loudness.
+                    </p>
+                </div>
+            </div>
+            <div class="col col-3">
+                <img src="./media/p6.jpg" alt="">
+                <img src="./media/p7.jpg" alt="">
+                <img src="./media/p8.jpg" alt="">
+            </div>
+        </div>
+    </section>
 </div>
-
-
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<!-- gsap -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
-<!-- swiper js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
-<!-- custom js -->
-<script src="/assets/scripts/index.js"></script>
+<footer>
+    <div class="logo"><a href="#">Groupie Tracker</a></div>
+    <div class="btn">instagram</div>
+</footer>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollTrigger/1.0.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+<script src="./script.js"></script>
 
 </html>
