@@ -1,8 +1,9 @@
 const rapButton = document.getElementById("rap-button");
-const popVibesButton = document.getElementById("vibes-button");
+const popvibesButton = document.getElementById("vibes-button");
 const electrobutton = document.getElementById("electro-button");
 const rockbutton = document.getElementById("rock-button");
 const metalbutton = document.getElementById("metal-button");
+const hiphopbutton = document.getElementById("hip-hop-button");
 
 rapButton.addEventListener('click', function() {
     let urlParameter = new URLSearchParams();
@@ -12,7 +13,7 @@ rapButton.addEventListener('click', function() {
     window.location.href = urlNewPage
 });
 
-popVibesButton.addEventListener('click', function() {
+popvibesButton.addEventListener('click', function() {
     let urlParameterPop = new URLSearchParams();
     urlParameterPop.append('genre', 'pop-vibes');
 
@@ -40,4 +41,11 @@ metalbutton.addEventListener('click', function() {
 
     let urlNewPagemetal = `http://localhost:3001/categorie?${urlParametermetal.toString()}`
     window.location.href = urlNewPagemetal
+});
+hiphopbutton.addEventListener('click', function() {
+    let urlParameterhiphop = new URLSearchParams();
+    urlParameterhiphop.append('genre', 'hip-hop');
+
+    let urlNewPagehiphop = `http://localhost:3001/categorie?${urlParameterhiphop.toString()}`
+    window.location.href = urlNewPagehiphop
 });
