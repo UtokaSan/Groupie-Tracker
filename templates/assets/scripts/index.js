@@ -14,30 +14,30 @@ rapButton.addEventListener('click', function() {
 
 popVibesButton.addEventListener('click', function() {
     let urlParameterPop = new URLSearchParams();
-    urlParameterPop.append('genre', 'Pop-vibes');
+    urlParameterPop.append('genre', 'pop-vibes');
 
-    let urlNewPagePop = `http://localhost:3001/categorie?${urlParameterPop.toString()}`
-    window.location.href = urlNewPagePop
+    let urlNewPagepop = `http://localhost:3001/categorie?${urlParameterpop.toString()}`
+    window.location.href = urlNewPagepop
 });
 
 electrobutton.addEventListener('click', function() {
-    let urlParameterElectro = new URLSearchParams();
-    urlParameterElectro.append('genre', 'Electro');
+    let urlParameterelectro = new URLSearchParams();
+    urlParameterelectro.append('genre', 'electro');
 
-    let urlNewPageElectro = `http://localhost:3001/categorie?${urlParameterElectro.toString()}`
-    window.location.href = urlNewPageElectro
+    let urlNewPageelectro = `http://localhost:3001/categorie?${urlParameterelectro.toString()}`
+    window.location.href = urlNewPageelectro
 });
 rockbutton.addEventListener('click', function() {
-    let urlParameterRock = new URLSearchParams();
-    urlParameterRock.append('genre', 'Rock');
+    let urlParameterrock = new URLSearchParams();
+    urlParameterrock.append('genre', 'rock');
 
-    let urlNewPageRock = `http://localhost:3001/categorie?${urlParameterRock.toString()}`
-    window.location.href = urlNewPageRock
+    let urlNewPagerock = `http://localhost:3001/categorie?${urlParameterrock.toString()}`
+    window.location.href = urlNewPagerock
 });
 metalbutton.addEventListener('click', function() {
-    let urlParameterMetal = new URLSearchParams();
-    urlParameterMetal.append('genre', 'Metal');
+    let urlParametermetal = new URLSearchParams();
+    urlParametermetal.append('genre', 'metal');
 
-    let urlNewPageMetal = `http://localhost:3001/categorie?${urlParameterMetal.toString()}`
-    window.location.href = urlNewPageMetal
+    let urlNewPagemetal = `http://localhost:3001/categorie?${urlParametermetal.toString()}`
+    window.location.href = urlNewPagemetal
 });
