@@ -5,6 +5,7 @@ const rockbutton = document.getElementById("rock-button");
 const metalbutton = document.getElementById("metal-button");
 const hiphopbutton = document.getElementById("hip-hop-button");
 const alternativerockbutton= document.getElementById("alternative-rock-button");
+const reggaebutton= document.getElementById("reggae-button");
 
 rapButton.addEventListener('click', function() {
     let urlParameter = new URLSearchParams();
@@ -56,4 +57,11 @@ alternativerockbutton.addEventListener('click', function() {
 
     let urlNewPagealternativerock = `http://localhost:3001/categorie?${urlParameteralternativerock.toString()}`
     window.location.href = urlNewPagealternativerock
+});
+reggaebutton.addEventListener('click', function() {
+    let urlParameterreggae = new URLSearchParams();
+    urlParameterreggae.append('genre', 'reggae');
+
+    let urlNewPagereggae = `http://localhost:3001/categorie?${urlParameterreggae.toString()}`
+    window.location.href = urlNewPagereggae
 });
