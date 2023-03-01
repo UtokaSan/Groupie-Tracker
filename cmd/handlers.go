@@ -1,14 +1,9 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
 	"html/template"
-	"io/ioutil"
 	"net/http"
-	"net/url"
-	"strconv"
-	"strings"
 )
 
 func IndexHandlers(w http.ResponseWriter, r *http.Request) {
@@ -24,15 +19,12 @@ func IndexHandlers(w http.ResponseWriter, r *http.Request) {
 }
 
 func ArtistInfo(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/artistinfo" {
+	if r.URL.Path != "/categorie" {
 		errorHandler(w, r, http.StatusNotFound)
 	} else {
-		t, err := template.ParseFiles("templates/artistinfo.html")
-		data, _ := ioutil.ReadAll(r.Body)
-		input := string(data)[6 : len(data)-1]
-		InformationArtist(w, input)
-		InformationLocation(w, input)
-		InformationDate(w, input)
+		t, err := template.ParseFiles("templates/categorie.html")
+		/*data, _ := ioutil.ReadAll(r.Body)
+		input := string(data)[6 : len(data)-1]*/
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -40,6 +32,7 @@ func ArtistInfo(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+/*
 func InformationArtist(w http.ResponseWriter, id string) {
 	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + id)
 	if err != nil {
@@ -109,8 +102,8 @@ func InformationDate(w http.ResponseWriter, id string) {
 	json.NewEncoder(w).Encode(artistDates)
 	fmt.Println(artistDates)
 }
-
-func ApiGenre(w http.ResponseWriter, r *http.Request) {
+*/
+/*func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
 		fmt.Println(err)
@@ -135,9 +128,9 @@ func ApiGenre(w http.ResponseWriter, r *http.Request) {
 			HipHopArtist(w, strconv.Itoa(artist[i].ID))
 		}
 	}
-}
+}*/
 
-func RockArtist(w http.ResponseWriter, rockId string) {
+/*func RockArtist(w http.ResponseWriter, rockId string) {
 	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + rockId)
 	if err != nil {
 		fmt.Println(err)
@@ -164,7 +157,7 @@ func HipHopArtist(w http.ResponseWriter, rockId string) {
 		fmt.Println(err)
 	}
 	json.NewEncoder(w).Encode(artist)
-}
+}*/
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	w.WriteHeader(status)
