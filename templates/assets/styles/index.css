@@ -1,3 +1,4 @@
+
 *{
     padding: 0;
     margin: 0;
@@ -49,7 +50,6 @@ body{
         transform: translate(0%);
     }
 }
-
 
 .logo{
     text-transform: capitalize;
@@ -115,7 +115,7 @@ section{
 
 }
 
-
+button {background: none; border: none; color: white}
 
 .section{
     background-color: #141414;
