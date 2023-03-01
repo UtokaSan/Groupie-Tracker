@@ -1,9 +1,13 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"net/http"
+	"net/url"
+	"strings"
 )
 
 func IndexHandlers(w http.ResponseWriter, r *http.Request) {
@@ -18,13 +22,12 @@ func IndexHandlers(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ArtistInfo(w http.ResponseWriter, r *http.Request) {
+func CategorieArtist(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/categorie" {
 		errorHandler(w, r, http.StatusNotFound)
 	} else {
 		t, err := template.ParseFiles("templates/categorie.html")
-		/*data, _ := ioutil.ReadAll(r.Body)
-		input := string(data)[6 : len(data)-1]*/
+
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -48,7 +51,7 @@ func InformationArtist(w http.ResponseWriter, id string) {
 	json.NewEncoder(w).Encode(artistInformation)
 	fmt.Println(artistInformation)
 }
-
+*/
 func InformationArtistTag(name string) string {
 	apikey := "471f5119aa12d32718ae05f982f745dc"
 	escapeName := url.QueryEscape(name)
@@ -62,13 +65,14 @@ func InformationArtistTag(name string) string {
 	if err != nil {
 		fmt.Println(err)
 	}
-	if len(artistTopTags.Toptags.Tag[0].Name) > 0 {
-		artistGenre := artistTopTags.Toptags.Tag[0].Name
+	if len(artistTopTags.Toptags.Tag) > 0 {
+		artistGenre := strings.ToLower(artistTopTags.Toptags.Tag[0].Name)
 		return artistGenre
 	}
 	return "bad"
 }
 
+/*
 func InformationLocation(w http.ResponseWriter, id string) {
 	get, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/" + id)
 	if err != nil {
@@ -103,14 +107,14 @@ func InformationDate(w http.ResponseWriter, id string) {
 	fmt.Println(artistDates)
 }
 */
-/*func ApiGenre(w http.ResponseWriter, r *http.Request) {
+func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
 		fmt.Println(err)
 	}
 	resp, err := ioutil.ReadAll(get.Body)
 	data, _ := ioutil.ReadAll(r.Body)
-	input := string(data)[8 : len(data)-2]
+	input := string(data)[7 : len(data)-2]
 	fmt.Println(input)
 	var artist []ImageID
 	err = json.Unmarshal(resp, &artist)
@@ -118,46 +122,17 @@ func InformationDate(w http.ResponseWriter, id string) {
 		fmt.Println(err)
 		return
 	}
-	for i, _ := range artist {
-		artist[i].Genre = InformationArtistTag(artist[i].Name)
-	}
-	for i, _ := range artist {
-		if strings.Contains(artist[i].Genre, "rock") && input == "rock" {
-			RockArtist(w, strconv.Itoa(artist[i].ID))
-		} else if strings.Contains(artist[i].Genre, "Hip-Hop") && input == "Hip-Hop" {
-			HipHopArtist(w, strconv.Itoa(artist[i].ID))
+	var genreRock []ImageID
+	for _, values := range artist {
+		genre := InformationArtistTag(values.Name)
+		if strings.Contains(genre, input) {
+			values.Genre = genre
+			genreRock = append(genreRock, values)
 		}
 	}
-}*/
-
-/*func RockArtist(w http.ResponseWriter, rockId string) {
-	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + rockId)
-	if err != nil {
-		fmt.Println(err)
-	}
-	data, err := ioutil.ReadAll(get.Body)
-	fmt.Println(string(data))
-	var artist []ImageID
-	err = json.Unmarshal(data, &artist)
-	if err != nil {
-		fmt.Println(err)
-	}
-	json.NewEncoder(w).Encode(artist)
+	fmt.Println(genreRock)
+	json.NewEncoder(w).Encode(genreRock)
 }
-func HipHopArtist(w http.ResponseWriter, rockId string) {
-	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + rockId)
-	if err != nil {
-		fmt.Println(err)
-	}
-	data, err := ioutil.ReadAll(get.Body)
-	fmt.Println(string(data))
-	var artist []ImageID
-	err = json.Unmarshal(data, &artist)
-	if err != nil {
-		fmt.Println(err)
-	}
-	json.NewEncoder(w).Encode(artist)
-}*/
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	w.WriteHeader(status)
