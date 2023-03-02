@@ -17,6 +17,11 @@
     <nav class="navbar">
         <span></span>
         <div class="logo">Menu</div>
+        <form class="search-form" onsubmit="return search()">
+            <input id="search-input" class="search-input" type="text" name="q" placeholder="Recherche...">
+            <button class="search-button" type="submit">Rechercher</button>
+        </form>
+        <div id="search-results"></div>
         <ul class="menu">
             <li><a href="#">Github</a></li>
             <li><a href="#">instagram</a></li>
@@ -32,7 +37,6 @@
         <div class="img-container">
             <img src="assets/media/window.png" alt="" class="img">
         </div>
-
         <div class="text-content">
             <div class="img_txt">
                 <div class="title sm left">
