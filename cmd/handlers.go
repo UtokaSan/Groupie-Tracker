@@ -122,16 +122,16 @@ func ApiGenre(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
-	var genreRock []ImageID
+	var genreArtist []ImageID
 	for _, values := range artist {
 		genre := InformationArtistTag(values.Name)
 		if strings.Contains(genre, input) {
 			values.Genre = genre
-			genreRock = append(genreRock, values)
+			genreArtist = append(genreArtist, values)
 		}
 	}
-	fmt.Println(genreRock)
-	json.NewEncoder(w).Encode(genreRock)
+	fmt.Println(genreArtist)
+	json.NewEncoder(w).Encode(genreArtist)
 }
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {

@@ -19,49 +19,49 @@ popvibesButton.addEventListener('click', function() {
     let urlParameterPop = new URLSearchParams();
     urlParameterPop.append('genre', 'pop-vibes');
 
-    let urlNewPagepop = `http://localhost:8080/categorie?${urlParameterpop.toString()}`
-    window.location.href = urlNewPagepop
+    let urlNewPagePop = `http://localhost:8080/categorie?${urlParameterPop.toString()}`
+    window.location.href = urlNewPagePop
 });
 
 electrobutton.addEventListener('click', function() {
-    let urlParameterelectro = new URLSearchParams();
-    urlParameterelectro.append('genre', 'electro');
+    let urlParameterElectro = new URLSearchParams();
+    urlParameterElectro.append('genre', 'electro');
 
-    let urlNewPageelectro = `http://localhost:8080/categorie?${urlParameterelectro.toString()}`
-    window.location.href = urlNewPageelectro
+    let urlNewPageElectro = `http://localhost:8080/categorie?${urlParameterElectro.toString()}`
+    window.location.href = urlNewPageElectro
 });
 rockbutton.addEventListener('click', function() {
-    let urlParameterrock = new URLSearchParams();
-    urlParameterrock.append('genre', 'rock');
+    let urlParameterRock = new URLSearchParams();
+    urlParameterRock.append('genre', 'rock');
 
-    let urlNewPagerock = `http://localhost:8008/categorie?${urlParameterrock.toString()}`
-    window.location.href = urlNewPagerock
+    let urlNewPageRock = `http://localhost:8008/categorie?${urlParameterRock.toString()}`
+    window.location.href = urlNewPageRock
 });
 metalbutton.addEventListener('click', function() {
-    let urlParametermetal = new URLSearchParams();
-    urlParametermetal.append('genre', 'metal');
+    let urlParameterMetal = new URLSearchParams();
+    urlParameterMetal.append('genre', 'metal');
 
-    let urlNewPagemetal = `http://localhost:8080/categorie?${urlParametermetal.toString()}`
-    window.location.href = urlNewPagemetal
+    let urlNewPageMetal = `http://localhost:8080/categorie?${urlParameterMetal.toString()}`
+    window.location.href = urlNewPageMetal
 });
 hiphopbutton.addEventListener('click', function() {
-    let urlParameterhiphop = new URLSearchParams();
-    urlParameterhiphop.append('genre', 'hip-hop');
+    let urlParameterHiphop = new URLSearchParams();
+    urlParameterHiphop.append('genre', 'hip-hop');
 
-    let urlNewPagehiphop = `http://localhost:8080/categorie?${urlParameterhiphop.toString()}`
-    window.location.href = urlNewPagehiphop
+    let urlNewPageHiphop = `http://localhost:8080/categorie?${urlParameterHiphop.toString()}`
+    window.location.href = urlNewPageHiphop
 });
 alternativerockbutton.addEventListener('click', function() {
-    let urlParameteralternativerock = new URLSearchParams();
-    urlParameteralternativerock.append('genre', 'alternative-rock');
+    let urlParameterAlternativeRock = new URLSearchParams();
+    urlParameterAlternativeRock.append('genre', 'alternative-rock');
 
-    let urlNewPagealternativerock = `http://localhost:8080/categorie?${urlParameteralternativerock.toString()}`
-    window.location.href = urlNewPagealternativerock
+    let urlNewPageAlternativeRock = `http://localhost:8080/categorie?${urlParameterAlternativeRock.toString()}`
+    window.location.href = urlNewPageAlternativeRock
 });
 reggaebutton.addEventListener('click', function() {
-    let urlParameterreggae = new URLSearchParams();
-    urlParameterreggae.append('genre', 'reggae');
+    let urlParameterReggae = new URLSearchParams();
+    urlParameterReggae.append('genre', 'reggae');
 
-    let urlNewPagereggae = `http://localhost:3001/categorie?${urlParameterreggae.toString()}`
-    window.location.href = urlNewPagereggae
+    let urlNewPageReggae = `http://localhost:3001/categorie?${urlParameterReggae.toString()}`
+    window.location.href = urlNewPageReggae
 });
