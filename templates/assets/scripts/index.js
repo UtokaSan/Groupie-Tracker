@@ -63,14 +63,14 @@ reggaebutton.addEventListener('click', function() {
     let urlParameterReggae = new URLSearchParams();
     urlParameterReggae.append('genre', 'reggae');
 
-    let urlNewPageReggae = `http://localhost:3001/categorie?${urlParameterReggae.toString()}`
+    let urlNewPageReggae = `http://localhost:8080/categorie?${urlParameterReggae.toString()}`
     window.location.href = urlNewPageReggae
 });
 jazzbutton.addEventListener('click', function() {
     let urlParameterJazz = new URLSearchParams();
     urlParameterJazz.append('genre', 'jazz');
 
-    let urlNewPageJazz = `http://localhost:3001/categorie?${urlParameterJazz.toString()}`
+    let urlNewPageJazz = `http://localhost:8080/categorie?${urlParameterJazz.toString()}`
     window.location.href = urlNewPageJazz
 });
 
