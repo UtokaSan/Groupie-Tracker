@@ -27,7 +27,6 @@ func CategorieArtist(w http.ResponseWriter, r *http.Request) {
 		errorHandler(w, r, http.StatusNotFound)
 	} else {
 		t, err := template.ParseFiles("templates/categorie.html")
-
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -125,7 +124,10 @@ func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	var genreArtist []ImageID
 	for _, values := range artist {
 		genre := InformationArtistTag(values.Name)
-		if strings.Contains(genre, input) {
+		if strings.Contains(genre, input) && input != "alternative" {
+			values.Genre = genre
+			genreArtist = append(genreArtist, values)
+		} else if input == "alternative" && genre == "alternative" {
 			values.Genre = genre
 			genreArtist = append(genreArtist, values)
 		}

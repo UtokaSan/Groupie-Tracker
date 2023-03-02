@@ -11,12 +11,6 @@ type ArtistInformation struct {
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
 }
-type GenreArtist struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Image string `json:"image"`
-	Genre string
-}
 type Location struct {
 	ID        int      `json:"id"`
 	Locations []string `json:"locations"`

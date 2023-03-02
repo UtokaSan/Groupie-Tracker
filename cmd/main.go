@@ -14,7 +14,7 @@ func Runner() {
 	server.HandleFunc("/api/genre", ApiGenre)
 	fs := http.FileServer(http.Dir("templates/assets"))
 	server.Handle("/assets/", http.StripPrefix("/assets", fs))
-	fmt.Println("(http://localhost:8080) on port ", port)
+	fmt.Println("(http://localhost:8080", port)
 	err := http.ListenAndServe(port, server)
 	if err != nil {
 		fmt.Println("error :", err)
