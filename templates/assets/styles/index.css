@@ -420,12 +420,14 @@ body {
     margin-top: 20px;
 }
 .search-input {
+    background-color: transparent;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 16px;
     width: 300px;
     margin-right: 10px;
+    border-color: white;
+
 }
 .search-button {
     padding: 10px 20px;
