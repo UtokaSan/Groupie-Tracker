@@ -80,3 +80,6 @@ function search() {
     resultsDiv.innerHTML = "Search results for\n : " + query;
     return false;
 }
+function dropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
