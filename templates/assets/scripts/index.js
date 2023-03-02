@@ -4,7 +4,7 @@ const electrobutton = document.getElementById("electro-button");
 const rockbutton = document.getElementById("rock-button");
 const metalbutton = document.getElementById("metal-button");
 const hiphopbutton = document.getElementById("hip-hop-button");
-const alternativerockbutton= document.getElementById("alternative-rock-button");
+const alternativebutton= document.getElementById("alternative-button");
 const reggaebutton= document.getElementById("reggae-button");
 
 rapButton.addEventListener('click', function() {
@@ -51,12 +51,12 @@ hiphopbutton.addEventListener('click', function() {
     let urlNewPageHiphop = `http://localhost:8080/categorie?${urlParameterHiphop.toString()}`
     window.location.href = urlNewPageHiphop
 });
-alternativerockbutton.addEventListener('click', function() {
-    let urlParameterAlternativeRock = new URLSearchParams();
-    urlParameterAlternativeRock.append('genre', 'alternative-rock');
+alternativebutton.addEventListener('click', function() {
+    let urlParameterAlternative = new URLSearchParams();
+    urlParameterAlternative.append('genre', 'alternative');
 
-    let urlNewPageAlternativeRock = `http://localhost:8080/categorie?${urlParameterAlternativeRock.toString()}`
-    window.location.href = urlNewPageAlternativeRock
+    let urlNewPageAlternative = `http://localhost:8080/categorie?${urlParameterAlternative.toString()}`
+    window.location.href = urlNewPageAlternative
 });
 reggaebutton.addEventListener('click', function() {
     let urlParameterReggae = new URLSearchParams();
