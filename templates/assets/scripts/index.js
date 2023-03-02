@@ -35,7 +35,7 @@ rockbutton.addEventListener('click', function() {
     let urlParameterRock = new URLSearchParams();
     urlParameterRock.append('genre', 'rock');
 
-    let urlNewPageRock = `http://localhost:8008/categorie?${urlParameterRock.toString()}`
+    let urlNewPageRock = `http://localhost:8080/categorie?${urlParameterRock.toString()}`
     window.location.href = urlNewPageRock
 });
 metalbutton.addEventListener('click', function() {
