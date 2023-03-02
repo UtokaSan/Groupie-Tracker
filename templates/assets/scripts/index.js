@@ -77,6 +77,6 @@ jazzbutton.addEventListener('click', function() {
 function search() {
     var query = document.getElementById("search-input").value;
     var resultsDiv = document.getElementById("search-results");
-    resultsDiv.innerHTML = "Résultats de recherche pour : " + query;
+    resultsDiv.innerHTML = "Search results for\n : " + query;
     return false;
 }
