@@ -1,5 +1,5 @@
 const rapButton = document.getElementById("rap-button");
-const popvibesButton = document.getElementById("vibes-button");
+const popButton = document.getElementById("pop-button");
 const electrobutton = document.getElementById("electro-button");
 const rockbutton = document.getElementById("rock-button");
 const metalbutton = document.getElementById("metal-button");
@@ -16,9 +16,9 @@ rapButton.addEventListener('click', function() {
     window.location.href = urlNewPage
 });
 
-popvibesButton.addEventListener('click', function() {
+popButton.addEventListener('click', function() {
     let urlParameterPop = new URLSearchParams();
-    urlParameterPop.append('genre', 'pop-vibes');
+    urlParameterPop.append('genre', 'pop');
 
     let urlNewPagePop = `http://localhost:8080/categorie?${urlParameterPop.toString()}`
     window.location.href = urlNewPagePop

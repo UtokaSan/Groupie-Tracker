@@ -8,7 +8,7 @@ function updateProgress(progress) {
 
 var progress = 100;
 var interval = setInterval(function() {
-    progress -= 10; // Diminuer de 10%
+    progress -= 12.8; // Diminuer de 10%
     updateProgress(progress);
     if (progress <= 0) {
         progressId.style.display = "none";
