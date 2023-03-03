@@ -28,10 +28,8 @@ metalbutton.addEventListener('click', function() {
     let urlNewPageMetal = `http://localhost:8080/categorie?${urlParameterMetal.toString()}`
     window.location.href = urlNewPageMetal
 });
-setTimeout(function() {
-    window.location.href = "http://localhost:3001/";
-}, 10000);
-
-function annulerRedirection() {
-    clearTimeout();
-}
+window.addEventListener("load", function(){
+    setTimeout(function(){
+        document.querySelector(".progress-bar").style.width = "0%";
+    }, 10000);
+});
