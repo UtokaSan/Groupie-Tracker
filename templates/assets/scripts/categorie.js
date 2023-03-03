@@ -1,14 +1,16 @@
-let progress = document.querySelector('.progress');
+const progressBar = document.querySelector('.progress-bar');
+const progressId = document.getElementById("progress")
 
-let intervalId = setInterval(function() {
-    let width = parseInt(progress.style.width) || 0;
-    width++;
-    progress.style.width = width + '%';
-    if (width >= 100) {
-        clearInterval(intervalId);
+function updateProgress(progress) {
+    progressBar.style.width = progress + '%';
+    progressBar.setAttribute('aria-valuenow', progress);
+}
+
+var progress = 100;
+var interval = setInterval(function() {
+    progress -= 10; // Diminuer de 10%
+    updateProgress(progress);
+    if (progress <= 0) {
+        progressId.style.display = "none";
     }
-}, 100);
-
-setTimeout(function() {
-    document.querySelector('.progress').style.width = '0%';
-}, 10000);
+}, 1000);

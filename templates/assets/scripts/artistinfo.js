@@ -14,20 +14,17 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             data.forEach(function callback(value, index)  {
                 var button = document.createElement("button");
+                const img = document.createElement('img');
                 button.classList.add("name" + index)
                 button.textContent = value.name;
+                img.src = value.image;
                 test.appendChild(button);
+                test.appendChild(img);
             });
         })
         .catch(error => console.error(error))
 })
-metalbutton.addEventListener('click', function() {
-    let urlParameterMetal = new URLSearchParams();
-    urlParameterMetal.append('genre', 'metal');
 
-    let urlNewPageMetal = `http://localhost:8080/categorie?${urlParameterMetal.toString()}`
-    window.location.href = urlNewPageMetal
-});
 window.addEventListener("load", function(){
     setTimeout(function(){
         document.querySelector(".progress-bar").style.width = "0%";
