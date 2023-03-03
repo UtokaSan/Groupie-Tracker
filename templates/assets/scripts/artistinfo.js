@@ -24,9 +24,3 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error(error))
 })
-
-window.addEventListener("load", function(){
-    setTimeout(function(){
-        document.querySelector(".progress-bar").style.width = "0%";
-    }, 10000);
-});
