@@ -74,12 +74,3 @@ jazzbutton.addEventListener('click', function() {
     window.location.href = urlNewPageJazz
 });
 
-function search() {
-    var query = document.getElementById("search-input").value;
-    var resultsDiv = document.getElementById("search-results");
-    resultsDiv.innerHTML = "Search results for\n : " + query;
-    return false;
-}
-function dropdown() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
