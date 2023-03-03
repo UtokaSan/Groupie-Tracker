@@ -73,4 +73,9 @@ jazzbutton.addEventListener('click', function() {
     let urlNewPageJazz = `http://localhost:8080/categorie?${urlParameterJazz.toString()}`
     window.location.href = urlNewPageJazz
 });
-
+const form = document.querySelector('form');
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // empêche la soumission du formulaire
+    const searchValue = document.querySelector('input[name="search"]').value;
+    window.location.href = `https://www.instagram.com/=${searchValue}`;
+});

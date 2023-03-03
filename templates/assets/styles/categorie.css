@@ -10,3 +10,9 @@
     width: 100%;
     transition: width 1s linear;
 }
+
+body {
+    background-image: url('../media/loding.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
