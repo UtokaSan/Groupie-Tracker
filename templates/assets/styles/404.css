@@ -1,0 +1,56 @@
+.Rip {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
+
+.Rip img:nth-of-type(1) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.Rip img:nth-of-type(2) {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    height: 40%;
+    width: auto;
+}
+
+.Rip img:nth-of-type(3) {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    height: 30%;
+    width: auto;
+}
+.bozo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.bozo p1 {
+    font-size: 4rem;
+    color: white;
+    text-shadow: 2px 2px black;
+}
+
+.bozo p2 {
+    font-size: 2rem;
+    color: white;
+    text-shadow: 2px 2px black;
+}
+.img#image-404-4 {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: auto;
+}
