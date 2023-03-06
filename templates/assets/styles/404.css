@@ -50,7 +50,13 @@
 .img#image-404-4 {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     width: 200px;
     height: auto;
+}
+.Angèle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
 }
