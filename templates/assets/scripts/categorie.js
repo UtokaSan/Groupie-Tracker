@@ -16,3 +16,7 @@ var interval = setInterval(function() {
         document.querySelector(".disk").style.display = "block";
     }
 }, 1000);
+const newDiv = document.createElement('div');
+newDiv.classList.add('emple');
+const container = document.getElementById('contoiner');
+container.appendChild(newDiv);
