@@ -6,14 +6,20 @@ type ImageID struct {
 	Image string `json:"image"`
 	Genre string
 }
+type Test struct {
+	Artists  []ImageID `json:"artists"`
+	Relation Data      `json:"relation"`
+}
 type ArtistInformation struct {
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
 }
-type Location struct {
-	ID        int      `json:"id"`
-	Locations []string `json:"locations"`
+type Data struct {
+	Index []struct {
+		ID            int                 `json:"id"`
+		DatesLocation map[string][]string `json:"datesLocations"`
+	} `json:"index"`
 }
 type Dates struct {
 	ID    int      `json:"id"`

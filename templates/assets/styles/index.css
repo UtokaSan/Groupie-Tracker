@@ -419,7 +419,7 @@ body {
     justify-content: center;
     margin-top: 20px;
 }
-.search-input {
+#search-input {
     background-color: transparent;
     padding: 10px;
     border-radius: 10px;

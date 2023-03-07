@@ -136,6 +136,42 @@ func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(genreArtist)
 }
 
+func SearchBar(w http.ResponseWriter, r *http.Request) {
+	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
+	var test1 []ImageID
+	var test2 Data
+	respArtists, err := ioutil.ReadAll(getArtists.Body)
+	respLocations, err := ioutil.ReadAll(getLocation.Body)
+	err = json.Unmarshal(respArtists, &test1)
+	err = json.Unmarshal(respLocations, &test2)
+	if err != nil {
+		fmt.Println("erreur")
+	}
+	data := Test{
+		Artists:  test1,
+		Relation: test2,
+	}
+	json.NewEncoder(w).Encode(&data)
+	if err != nil {
+		fmt.Println(err)
+	}
+	/*
+		data, _ := ioutil.ReadAll(r.Body)
+		input := string(data)[7 : len(data)-2]
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println(location[0].Index[0].DatesLocations)
+		for _, values := range artist {
+			if input == values.Name {
+				fmt.Println(values.Name)
+
+			}
+		}*/
+}
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	w.WriteHeader(status)
 	if status == http.StatusNotFound {
