@@ -33,6 +33,17 @@ func CategorieArtist(w http.ResponseWriter, r *http.Request) {
 		t.Execute(w, r)
 	}
 }
+func ArtistInfo(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/artistinfo" {
+		errorHandler(w, r, http.StatusNotFound)
+	} else {
+		t, err := template.ParseFiles("templates/artistinfo.html")
+		if err != nil {
+			fmt.Println(err)
+		}
+		t.Execute(w, r)
+	}
+}
 
 /*
 func InformationArtist(w http.ResponseWriter, id string) {

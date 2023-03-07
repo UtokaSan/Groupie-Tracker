@@ -11,6 +11,7 @@ func Runner() {
 	server := http.NewServeMux()
 	server.HandleFunc("/", IndexHandlers)
 	server.HandleFunc("/categorie", CategorieArtist)
+	server.HandleFunc("/artistinfo", ArtistInfo)
 	server.HandleFunc("/api/genre", ApiGenre)
 	server.HandleFunc("/post/searchbar", SearchBar)
 	fs := http.FileServer(http.Dir("templates/assets"))

@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 test.appendChild(div)
                 div.appendChild(img);
                 div.appendChild(button);
+                button.addEventListener('click', function () {
+                    let urlParameter = new URLSearchParams();
+                    urlParameter.append('artist', value.id);
+                    let urlNewPage = `http://localhost:8080/artistinfo?${urlParameter.toString()}`
+                    window.location.href = urlNewPage
+                });
             });
         })
         .catch(error => console.error(error))
