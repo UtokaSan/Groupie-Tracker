@@ -1,3 +1,7 @@
+html {
+    margin: 0;
+    padding: 0;
+}
 .Rip {
     position: relative;
     height: 100vh;
@@ -73,7 +77,8 @@
 .angele1{
     position: absolute;
     right: 100px;
-    left: 1133px;
-    top: 300px;
-    width: 80px;
+    bottom: 100px;
+}
+.angele1 img {
+    width: 300px;
 }
