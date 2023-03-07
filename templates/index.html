@@ -17,8 +17,9 @@
     <nav class="navbar">
         <div class="logo">Menu</div>
         <form class="search-form">
-            <input id="search-input" type="text" placeholder="Search...">
-            <button class="search-button" type="submit">Search</button>
+            <label for="search-input">Recherche :</label>
+            <input type="text" id="search-input" list="suggestions">
+            <datalist id="suggestions"></datalist>
         </form>
         <div id="search-results"></div>
         <ul class="menu">
