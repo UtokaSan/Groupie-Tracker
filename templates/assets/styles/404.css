@@ -82,3 +82,21 @@ html {
 .angele1 img {
     width: 300px;
 }
+.lisa{
+    position: absolute;
+    right: 850px;
+    bottom: 50px;
+}
+.lisa img {
+    width: 300px;
+}
+.note2{
+    position: absolute;
+    bottom: 0;
+    right: 470px;
+    text-align: right;
+    color: white;
+    left: 60px;
+    font-size: large;
+    top: 750px;
+}
