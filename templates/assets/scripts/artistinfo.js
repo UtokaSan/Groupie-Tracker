@@ -15,11 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
             data.forEach(function callback(value, index)  {
                 var button = document.createElement("button");
                 const img = document.createElement('img');
+                const div = document.createElement('div');
                 button.classList.add("name" + index)
+                div.classList.add("artist")
                 button.textContent = value.name;
                 img.src = value.image;
-                test.appendChild(button);
-                test.appendChild(img);
+                test.appendChild(div)
+                div.appendChild(img);
+                div.appendChild(button);
             });
         })
         .catch(error => console.error(error))
