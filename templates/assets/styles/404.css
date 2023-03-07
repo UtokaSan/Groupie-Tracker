@@ -47,16 +47,33 @@
     color: white;
     text-shadow: 2px 2px black;
 }
-.img#image-404-4 {
-    position: fixed;
-    top: 0;
-    left: 0;
+.Rip1 {
+    position: absolute;
+    top: 50px;
+    left: 50px;
     width: 200px;
-    height: auto;
 }
 .Angèle {
     position: absolute;
     bottom: 0;
     right: 0;
     text-align: right;
+    color: white;
+}
+
+.note {
+    position: absolute;
+    bottom: 0;
+    right: 1300px;
+    text-align: right;
+    color: white;
+    left: 10px;
+    font-size: large;
+}
+.angele1{
+    position: absolute;
+    right: 100px;
+    left: 1133px;
+    top: 300px;
+    width: 80px;
 }
