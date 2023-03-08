@@ -17,12 +17,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 const img = document.createElement('img');
                 const div = document.createElement('div');
                 button.classList.add("name" + index)
-                div.classList.add("artist")
                 button.textContent = value.name;
                 img.src = value.image;
-                test.appendChild(div)
-                div.appendChild(img);
+                if (index >= 6 && index < 12) {
+                    div.classList.add("artist1");
+                } else if (index >= 12 && index < 18) {
+                    div.classList.add("artist2");
+                } else if (index >= 18 && index < 24) {
+                    div.classList.add("artist2");
+                } else if (index >= 24) {
+                    div.classList.add("artist3");
+                } else {
+                    div.classList.add("artist");
+                }
                 div.appendChild(button);
+                div.appendChild(img);
+                test.appendChild(div);
                 button.addEventListener('click', function () {
                     let urlParameter = new URLSearchParams();
                     urlParameter.append('artist', value.id);
