@@ -14,6 +14,7 @@ func Runner() {
 	server.HandleFunc("/artistinfo", ArtistInfo)
 	server.HandleFunc("/api/genre", ApiGenre)
 	server.HandleFunc("/post/searchbar", SearchBar)
+	server.HandleFunc("/get/artistinfo", ArtistInfoGet)
 	fs := http.FileServer(http.Dir("templates/assets"))
 	server.Handle("/assets/", http.StripPrefix("/assets", fs))
 	fmt.Println("(http://localhost:8080", port)

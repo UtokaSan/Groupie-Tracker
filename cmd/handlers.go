@@ -81,6 +81,32 @@ func InformationArtistTag(name string) string {
 	}
 	return "bad"
 }
+func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
+	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/1")
+	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/1")
+	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/1")
+	var test1 []ImageID
+	var test2 Location
+	var test3 Dates
+	respArtists, err := ioutil.ReadAll(getArtists.Body)
+	respLocations, err := ioutil.ReadAll(getLocation.Body)
+	respDates, err := ioutil.ReadAll(getDates.Body)
+	err = json.Unmarshal(respArtists, &test1)
+	err = json.Unmarshal(respLocations, &test2)
+	err = json.Unmarshal(respDates, &test3)
+	fmt.Println(test1)
+	fmt.Println(string(respArtists))
+	if err != nil {
+		fmt.Println(err)
+	}
+	dataResult := Test{
+		Artists:  test1,
+		Location: test2,
+		Dates:    test3,
+	}
+	fmt.Println(test1)
+	json.NewEncoder(w).Encode(&dataResult)
+}
 
 /*
 func InformationLocation(w http.ResponseWriter, id string) {
