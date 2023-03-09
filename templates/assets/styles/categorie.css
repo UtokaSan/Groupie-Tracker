@@ -1,5 +1,6 @@
 body {
     min-height: 100vh;
+    background: #302C2C;
 }
 .artist {
     display: flex;
@@ -27,12 +28,17 @@ body {
 }
 
 #test img {
-    width: 100px;
+    width: 150px;
 }
 .disk {
     position: absolute;
-    top: 7px;
+    top: 60px;
     right: 1230px;
     margin: 150px;
+}
+button {
+    background: rgba(0,0,0,0);
+    border-color: white;
+    color: white;
 }
 
