@@ -23,10 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     div.classList.add("artist1");
                 } else if (index >= 12 && index < 18) {
                     div.classList.add("artist2");
-                } else if (index >= 18 && index < 24) {
-                    div.classList.add("artist2");
-                } else if (index >= 24) {
-                    div.classList.add("artist3");
                 } else {
                     div.classList.add("artist");
                 }

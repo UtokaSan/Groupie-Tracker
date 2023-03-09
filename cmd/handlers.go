@@ -149,19 +149,24 @@ func ApiGenre(w http.ResponseWriter, r *http.Request) {
 
 func SearchBar(w http.ResponseWriter, r *http.Request) {
 	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
-	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
+	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
+	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
 	var test1 []ImageID
-	var test2 Data
+	var test2 Location
+	var test3 Dates
 	respArtists, err := ioutil.ReadAll(getArtists.Body)
 	respLocations, err := ioutil.ReadAll(getLocation.Body)
+	respDates, err := ioutil.ReadAll(getDates.Body)
 	err = json.Unmarshal(respArtists, &test1)
 	err = json.Unmarshal(respLocations, &test2)
+	err = json.Unmarshal(respDates, &test3)
 	if err != nil {
 		fmt.Println("erreur")
 	}
 	data := Test{
 		Artists:  test1,
-		Relation: test2,
+		Location: test2,
+		Dates:    test3,
 	}
 	json.NewEncoder(w).Encode(&data)
 	if err != nil {

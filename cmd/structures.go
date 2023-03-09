@@ -1,15 +1,18 @@
 package cmd
 
 type ImageID struct {
-	ID      int      `json:"id"`
-	Name    string   `json:"name"`
-	Image   string   `json:"image"`
-	Members []string `json:"members"`
-	Genre   string
+	ID           int      `json:"id"`
+	Name         string   `json:"name"`
+	Image        string   `json:"image"`
+	Members      []string `json:"members"`
+	CreationDate int      `json:"creationDate"`
+	firstAlbum   string   `json:"firstAlbum"`
+	Genre        string
 }
 type Test struct {
 	Artists  []ImageID `json:"artists"`
-	Relation Data      `json:"relation"`
+	Location Location  `json:"location"`
+	Dates    Dates     `json:"dates"`
 }
 type ArtistInformation struct {
 	Members      []string `json:"members"`
@@ -22,9 +25,18 @@ type Data struct {
 		DatesLocation map[string][]string `json:"datesLocations"`
 	} `json:"index"`
 }
+type Location struct {
+	Index []struct {
+		ID        int      `json:"id"`
+		Locations []string `json:"locations"`
+	} `json:"index"`
+}
+
 type Dates struct {
-	ID    int      `json:"id"`
-	Dates []string `json:"dates"`
+	Index []struct {
+		ID    int      `json:"id"`
+		Dates []string `json:"dates"`
+	} `json:"index"`
 }
 
 type Relations struct {

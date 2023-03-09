@@ -19,10 +19,13 @@ body {
     transition: width 1s linear;
 }
 #test {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px;
+    margin: auto;
+    max-width: 600px
 }
+
 #test img {
     width: 100px;
 }
