@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 var button = document.createElement("button");
                 const img = document.createElement('img');
                 const div = document.createElement('div');
+                img.src = value.image;
                 button.classList.add("name" + index)
                 button.textContent = value.name;
-                img.src = value.image;
                 if (index >= 6 && index < 12) {
                     div.classList.add("artist1");
                 } else if (index >= 12 && index < 18) {
@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     div.classList.add("artist");
                 }
-                div.appendChild(button);
                 div.appendChild(img);
+                div.appendChild(button);
                 test.appendChild(div);
                 button.addEventListener('click', function () {
                     let urlParameter = new URLSearchParams();
