@@ -46,21 +46,21 @@ func ArtistInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-func InformationArtist(w http.ResponseWriter, id string) {
-	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + id)
-	if err != nil {
-		fmt.Println(err)
+	func InformationArtist(w http.ResponseWriter, id string) {
+		get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + id)
+		if err != nil {
+			fmt.Println(err)
+		}
+		resp, err := ioutil.ReadAll(get.Body)
+		var artistInformation ArtistInformation
+		err = json.Unmarshal(resp, &artistInformation)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		json.NewEncoder(w).Encode(artistInformation)
+		fmt.Println(artistInformation)
 	}
-	resp, err := ioutil.ReadAll(get.Body)
-	var artistInformation ArtistInformation
-	err = json.Unmarshal(resp, &artistInformation)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	json.NewEncoder(w).Encode(artistInformation)
-	fmt.Println(artistInformation)
-}
 */
 func InformationArtistTag(name string) string {
 	apikey := "471f5119aa12d32718ae05f982f745dc"
@@ -82,9 +82,9 @@ func InformationArtistTag(name string) string {
 	return "bad"
 }
 func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
-	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/1")
-	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/1")
-	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/1")
+	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
+	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
 	var test1 []ImageID
 	var test2 Location
 	var test3 Dates
@@ -104,44 +104,44 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 		Location: test2,
 		Dates:    test3,
 	}
-	fmt.Println(test1)
+	fmt.Println(test3)
 	json.NewEncoder(w).Encode(&dataResult)
 }
 
 /*
-func InformationLocation(w http.ResponseWriter, id string) {
-	get, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/" + id)
-	if err != nil {
-		fmt.Println(err)
-		return
+	func InformationLocation(w http.ResponseWriter, id string) {
+		get, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/" + id)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		resp, err := ioutil.ReadAll(get.Body)
+		var artistLocations Location
+		err = json.Unmarshal(resp, &artistLocations)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		json.NewEncoder(w).Encode(artistLocations)
+		fmt.Println(artistLocations)
 	}
-	resp, err := ioutil.ReadAll(get.Body)
-	var artistLocations Location
-	err = json.Unmarshal(resp, &artistLocations)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	json.NewEncoder(w).Encode(artistLocations)
-	fmt.Println(artistLocations)
-}
 
-func InformationDate(w http.ResponseWriter, id string) {
-	get, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/" + id)
-	if err != nil {
-		fmt.Println(err)
-		return
+	func InformationDate(w http.ResponseWriter, id string) {
+		get, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/" + id)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		resp, err := ioutil.ReadAll(get.Body)
+		var artistDates Dates
+		err = json.Unmarshal(resp, &artistDates)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		json.NewEncoder(w).Encode(artistDates)
+		fmt.Println(artistDates)
 	}
-	resp, err := ioutil.ReadAll(get.Body)
-	var artistDates Dates
-	err = json.Unmarshal(resp, &artistDates)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	json.NewEncoder(w).Encode(artistDates)
-	fmt.Println(artistDates)
-}
 */
 func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
