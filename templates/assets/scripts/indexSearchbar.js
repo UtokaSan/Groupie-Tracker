@@ -1,3 +1,4 @@
+let dataArtist = [];
 document.addEventListener('DOMContentLoaded', function () {
     fetch('/post/searchbar')
         .then(response => response.json())
@@ -11,32 +12,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 suggestions.innerHTML = "";
                 if (valueSearch.value.length > 3) {
                     data.artists.forEach(function (artist) {
-                        if (artist.name.toLowerCase().includes(takeFirstLetter)) {
-                            if (valueSearch.value.startsWith(takeFirstLetter)) {
-                                let option = document.createElement("option");
-                                option.value = artist.name + " -Artist";
-                                suggestions.appendChild(option);
-                            }
+                        if (artist.name.toLowerCase().startsWith(valueSearch.value.toLowerCase())) {
+                            let option = document.createElement("option");
+                            option.value = artist.name + " -Artist";
+                            suggestions.appendChild(option);
                         }
                         artist.members.forEach(function (member) {
-                            if (member.toLowerCase().includes(takeFirstLetter)) {
-                                if (valueSearch.value.startsWith(takeFirstLetter)) {
-                                    let option = document.createElement("option");
-                                    suggestions.appendChild(option);
-                                    option.value = member + " -Member";
-                                }
+                            if (member.toLowerCase().startsWith(valueSearch.value.toLowerCase())) {
+                                let option = document.createElement("option");
+                                suggestions.appendChild(option);
+                                option.value = member + " -Member";
                             }
                         });
-                        if (artist.creationDate.toString().includes(takeFirstLetter)) {
+                        if (artist.creationDate.toString().startsWith(valueSearch.value.toLowerCase())) {
                             let option = document.createElement("option");
-                            option.value = artist.creationDate + " -Creation Date";
+                            option.value = artist.creationDate + " - " + artist.name + " -Creation Date";
                             suggestions.appendChild(option);
                         }
                         data.location.index.forEach(function (index) {
                             index.locations.forEach(function (location) {
-                                if (location.toLowerCase().includes(takeFirstLetter)) {
+                                if (location.toLowerCase().startsWith(valueSearch.value.toLowerCase())) {
                                     let option = document.createElement("option");
-                                    option.value = location + "-" + artist.name + " -Location";
+                                    option.value = artistName;
                                     suggestions.appendChild(option);
                                 }
                             });
@@ -59,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                     data.location.index.forEach(function (index) {
                         index.locations.forEach(function (location) {
-                            if (event.target.value === location + " -Location") {
+                            if (event.target.value === location + " -Artist") {
                                 window.location.href = `http://localhost:8080/artistinfo?artist=${index.id}`;
                             }
                         })

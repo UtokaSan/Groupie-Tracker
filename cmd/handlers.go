@@ -66,12 +66,12 @@ func InformationArtistTag(name string) string {
 }
 
 func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
-	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
-	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
-	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
-	var artist []ImageID
+	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/1")
+	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/1")
+	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/1")
+	var artist ImageID
 	var location Location
-	var dates Dates
+	var dates Date
 	respArtists, err := ioutil.ReadAll(getArtists.Body)
 	respLocations, err := ioutil.ReadAll(getLocation.Body)
 	respDates, err := ioutil.ReadAll(getDates.Body)
@@ -79,12 +79,12 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 	err = json.Unmarshal(respLocations, &location)
 	err = json.Unmarshal(respDates, &dates)
 	fmt.Println("Structure requete :", artist)
-	fmt.Println("Corps requete : ", string(respArtists))
+	fmt.Println("Corps requete : ", string(respLocations))
 	if err != nil {
 		fmt.Println(err)
 	}
-	dataResult := Test{
-		Artists:  artist,
+	dataResult := ArtistInformation{
+		Artist:   artist,
 		Location: location,
 		Dates:    dates,
 	}
@@ -138,8 +138,8 @@ func SearchBar(w http.ResponseWriter, r *http.Request) {
 	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
 	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
 	var artist []ImageID
-	var location Location
-	var dates Dates
+	var location AllLocation
+	var dates AllDates
 	respArtists, err := ioutil.ReadAll(getArtists.Body)
 	respLocations, err := ioutil.ReadAll(getLocation.Body)
 	respDates, err := ioutil.ReadAll(getDates.Body)

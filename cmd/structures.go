@@ -11,38 +11,52 @@ type ImageID struct {
 	Genre        string
 }
 type Test struct {
-	Artists  []ImageID `json:"artists"`
-	Location Location  `json:"location"`
-	Dates    Dates     `json:"dates"`
+	Artists  []ImageID   `json:"artists"`
+	Location AllLocation `json:"location"`
+	Dates    AllDates    `json:"dates"`
 }
 type ArtistInformation struct {
-	Members      []string `json:"members"`
-	CreationDate int      `json:"creationDate"`
-	FirstAlbum   string   `json:"firstAlbum"`
+	Artist   ImageID  `json:"artist"`
+	Location Location `json:"location"`
+	Dates    Date     `json:"dates"`
 }
-type Data struct {
+
+type AllDateLocation struct {
 	Index []struct {
 		ID            int                 `json:"id"`
 		DatesLocation map[string][]string `json:"datesLocations"`
 	} `json:"index"`
 }
-type Location struct {
+type AllLocation struct {
 	Index []struct {
 		ID        int      `json:"id"`
 		Locations []string `json:"locations"`
 	} `json:"index"`
 }
 
-type Dates struct {
+type AllDates struct {
 	Index []struct {
 		ID    int      `json:"id"`
 		Dates []string `json:"dates"`
 	} `json:"index"`
 }
-
 type Relations struct {
 	ID             int                 `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
+}
+
+type Date struct {
+	ID    int      `json:"id"`
+	Dates []string `json:"dates"`
+}
+
+type Location struct {
+	ID        int      `json:"id"`
+	Locations []string `json:"locations"`
+}
+type DateLocation struct {
+	ID            int                 `json:"id"`
+	DatesLocation map[string][]string `json:"datesLocation"`
 }
 
 type Tag struct {
