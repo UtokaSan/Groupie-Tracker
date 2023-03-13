@@ -66,13 +66,13 @@ func InformationArtistTag(name string) string {
 }
 
 func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
-	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
-	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
-	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
-	var artist []ImageID
+	getArtist, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/1")
+	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/1")
+	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/2")
+	var artist ImageID
 	var location Location
 	var dates Dates
-	respArtists, err := ioutil.ReadAll(getArtists.Body)
+	respArtists, err := ioutil.ReadAll(getArtist.Body)
 	respLocations, err := ioutil.ReadAll(getLocation.Body)
 	respDates, err := ioutil.ReadAll(getDates.Body)
 	err = json.Unmarshal(respArtists, &artist)
@@ -83,13 +83,13 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	dataResult := Test{
+	/*dataResult := Test{
 		Artists:  artist,
 		Location: location,
 		Dates:    dates,
-	}
-	fmt.Println(dates)
-	json.NewEncoder(w).Encode(&dataResult)
+	}*/
+	fmt.Println(artist)
+	json.NewEncoder(w).Encode(&artist)
 }
 
 func ApiGenre(w http.ResponseWriter, r *http.Request) {
