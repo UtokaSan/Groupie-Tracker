@@ -66,7 +66,6 @@ func InformationArtistTag(name string) string {
 }
 
 func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
-<<<<<<< HEAD
 	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/1")
 	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/1")
 	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/1")
@@ -74,15 +73,6 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 	var location Location
 	var dates Date
 	respArtists, err := ioutil.ReadAll(getArtists.Body)
-=======
-	getArtist, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/1")
-	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/1")
-	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/2")
-	var artist ImageID
-	var location Location
-	var dates Dates
-	respArtists, err := ioutil.ReadAll(getArtist.Body)
->>>>>>> 8a651adabba55229e53fae83685ae2974db1beab
 	respLocations, err := ioutil.ReadAll(getLocation.Body)
 	respDates, err := ioutil.ReadAll(getDates.Body)
 	err = json.Unmarshal(respArtists, &artist)
@@ -93,18 +83,13 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-<<<<<<< HEAD
 	dataResult := ArtistInformation{
 		Artist:   artist,
-=======
-	/*dataResult := Test{
-		Artists:  artist,
->>>>>>> 8a651adabba55229e53fae83685ae2974db1beab
 		Location: location,
 		Dates:    dates,
-	}*/
-	fmt.Println(artist)
-	json.NewEncoder(w).Encode(&artist)
+	}
+	fmt.Println(dates)
+	json.NewEncoder(w).Encode(&dataResult)
 }
 
 func ApiGenre(w http.ResponseWriter, r *http.Request) {
