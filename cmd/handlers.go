@@ -66,9 +66,12 @@ func InformationArtistTag(name string) string {
 }
 
 func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
-	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/1")
-	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/1")
-	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/1")
+	data, _ := ioutil.ReadAll(r.Body)
+	input := string(data)[7 : len(data)-2]
+	fmt.Println("test :", input)
+	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + input)
+	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/" + input)
+	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/" + input)
 	var artist ImageID
 	var location Location
 	var dates Date

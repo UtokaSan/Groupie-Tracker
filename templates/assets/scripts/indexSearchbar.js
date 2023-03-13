@@ -60,17 +60,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (valueSearch.value === `${artist.creationDate} - ${artist.name} -Creation Date`) {
                         window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}`;
                     }
-                });
-                data.location.index.forEach(function (index) {
-                    index.locations.forEach(function (location) {
-                        location = location.replace(/[-_]/g, ' ');
-                        for (let artists of data.artists) {
-                            if (valueSearch.value === `${location} - ${artists.name}`) {
-                                window.location.href = `http://localhost:8080/artistinfo?artist=${artists.id}`;
+                    data.location.index.forEach(function (index) {
+                        index.locations.forEach(function (location) {
+                            location = location.replace(/[-_]/g, ' ');
+                            if (valueSearch.value === `${location} - ${artist.name}`) {
+                                window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}`;
                             }
-                        }
+                        })
                     })
-                })
+                });
             });
         })
         .catch(error => console.error(error))
