@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}`;
                         }
                     });
-                    if (valueSearch.value === artist.creationDate.toString() + " -Creation Date") {
+                    if (valueSearch.value === `${artist.creationDate} - ${artist.name} -Creation Date`) {
                         window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}`;
                     }
                 });
