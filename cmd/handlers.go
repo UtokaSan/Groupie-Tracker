@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"sync"
 )
 
 func IndexHandlers(w http.ResponseWriter, r *http.Request) {
@@ -45,30 +46,13 @@ func ArtistInfo(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-/*
-	func InformationArtist(w http.ResponseWriter, id string) {
-		get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + id)
-		if err != nil {
-			fmt.Println(err)
-		}
-		resp, err := ioutil.ReadAll(get.Body)
-		var artistInformation ArtistInformation
-		err = json.Unmarshal(resp, &artistInformation)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		json.NewEncoder(w).Encode(artistInformation)
-		fmt.Println(artistInformation)
-	}
-*/
 func InformationArtistTag(name string) string {
 	apikey := "471f5119aa12d32718ae05f982f745dc"
-	escapeName := url.QueryEscape(name)
-	get, err := http.Get("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist=" + escapeName + "&api_key=" + apikey + "&format=json")
+	get, err := http.Get("http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&artist=" + url.QueryEscape(name) + "&api_key=" + apikey + "&format=json")
 	if err != nil {
 		fmt.Println(err)
 	}
+	defer get.Body.Close()
 	resp, err := ioutil.ReadAll(get.Body)
 	var artistTopTags AllTags
 	err = json.Unmarshal(resp, &artistTopTags)
@@ -76,99 +60,75 @@ func InformationArtistTag(name string) string {
 		fmt.Println(err)
 	}
 	if len(artistTopTags.Toptags.Tag) > 0 {
-		artistGenre := strings.ToLower(artistTopTags.Toptags.Tag[0].Name)
-		return artistGenre
+		return strings.ToLower(artistTopTags.Toptags.Tag[0].Name)
 	}
 	return "bad"
 }
+
 func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
 	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
-	var test1 []ImageID
-	var test2 Location
-	var test3 Dates
+	var artist []ImageID
+	var location Location
+	var dates Dates
 	respArtists, err := ioutil.ReadAll(getArtists.Body)
 	respLocations, err := ioutil.ReadAll(getLocation.Body)
 	respDates, err := ioutil.ReadAll(getDates.Body)
-	err = json.Unmarshal(respArtists, &test1)
-	err = json.Unmarshal(respLocations, &test2)
-	err = json.Unmarshal(respDates, &test3)
-	fmt.Println(test1)
-	fmt.Println(string(respArtists))
+	err = json.Unmarshal(respArtists, &artist)
+	err = json.Unmarshal(respLocations, &location)
+	err = json.Unmarshal(respDates, &dates)
+	fmt.Println("Structure requete :", artist)
+	fmt.Println("Corps requete : ", string(respArtists))
 	if err != nil {
 		fmt.Println(err)
 	}
 	dataResult := Test{
-		Artists:  test1,
-		Location: test2,
-		Dates:    test3,
+		Artists:  artist,
+		Location: location,
+		Dates:    dates,
 	}
-	fmt.Println(test3)
+	fmt.Println(dates)
 	json.NewEncoder(w).Encode(&dataResult)
 }
 
-/*
-	func InformationLocation(w http.ResponseWriter, id string) {
-		get, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/" + id)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		resp, err := ioutil.ReadAll(get.Body)
-		var artistLocations Location
-		err = json.Unmarshal(resp, &artistLocations)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		json.NewEncoder(w).Encode(artistLocations)
-		fmt.Println(artistLocations)
-	}
-
-	func InformationDate(w http.ResponseWriter, id string) {
-		get, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/" + id)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		resp, err := ioutil.ReadAll(get.Body)
-		var artistDates Dates
-		err = json.Unmarshal(resp, &artistDates)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		json.NewEncoder(w).Encode(artistDates)
-		fmt.Println(artistDates)
-	}
-*/
 func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
 		fmt.Println(err)
 	}
+	defer get.Body.Close()
 	resp, err := ioutil.ReadAll(get.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
 	data, _ := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
 	input := string(data)[7 : len(data)-2]
 	fmt.Println(input)
 	var artist []ImageID
 	err = json.Unmarshal(resp, &artist)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+
 	var genreArtist []ImageID
+	var wg sync.WaitGroup
 	for _, values := range artist {
-		genre := InformationArtistTag(values.Name)
-		if strings.Contains(genre, input) && input != "alternative" {
-			values.Genre = genre
-			genreArtist = append(genreArtist, values)
-		} else if input == "alternative" && genre == "alternative" {
-			values.Genre = genre
-			genreArtist = append(genreArtist, values)
-		}
+		wg.Add(1)
+		go func(values ImageID) {
+			defer wg.Done()
+			genre := InformationArtistTag(values.Name)
+			if strings.Contains(genre, input) && input != "alternative" {
+				values.Genre = genre
+				genreArtist = append(genreArtist, values)
+			}
+			if input == "alternative" && genre == "alternative" {
+				values.Genre = genre
+				genreArtist = append(genreArtist, values)
+			}
+		}(values)
 	}
+	wg.Wait()
 	fmt.Println(genreArtist)
 	json.NewEncoder(w).Encode(genreArtist)
 }
@@ -177,43 +137,29 @@ func SearchBar(w http.ResponseWriter, r *http.Request) {
 	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
 	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
-	var test1 []ImageID
-	var test2 Location
-	var test3 Dates
+	var artist []ImageID
+	var location Location
+	var dates Dates
 	respArtists, err := ioutil.ReadAll(getArtists.Body)
 	respLocations, err := ioutil.ReadAll(getLocation.Body)
 	respDates, err := ioutil.ReadAll(getDates.Body)
-	err = json.Unmarshal(respArtists, &test1)
-	err = json.Unmarshal(respLocations, &test2)
-	err = json.Unmarshal(respDates, &test3)
+	err = json.Unmarshal(respArtists, &artist)
+	err = json.Unmarshal(respLocations, &location)
+	err = json.Unmarshal(respDates, &dates)
 	if err != nil {
 		fmt.Println("erreur")
 	}
 	data := Test{
-		Artists:  test1,
-		Location: test2,
-		Dates:    test3,
+		Artists:  artist,
+		Location: location,
+		Dates:    dates,
 	}
 	json.NewEncoder(w).Encode(&data)
 	if err != nil {
 		fmt.Println(err)
 	}
-	/*
-		data, _ := ioutil.ReadAll(r.Body)
-		input := string(data)[7 : len(data)-2]
-
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		fmt.Println(location[0].Index[0].DatesLocations)
-		for _, values := range artist {
-			if input == values.Name {
-				fmt.Println(values.Name)
-
-			}
-		}*/
 }
+
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	w.WriteHeader(status)
 	if status == http.StatusNotFound {

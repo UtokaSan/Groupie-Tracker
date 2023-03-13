@@ -1,41 +1,48 @@
-let option = document.createElement("option");
 document.addEventListener('DOMContentLoaded', function () {
     fetch('/post/searchbar')
         .then(response => response.json())
         .then(data => {
             let valueSearch = document.getElementById("search-input")
             let button = document.querySelector(".search-button");
+            let takeFirstLetter = valueSearch.value.substring(0, 3)
             /*console.log(data.relation.index[0].datesLocations);*/
-            console.log(data.location.index)
-            console.log(data.artists[0].creationDate)
             valueSearch.addEventListener("input", function(event) {
                 let suggestions = document.getElementById("suggestions");
                 suggestions.innerHTML = "";
-                data.artists.forEach(function (artist) {
-                    if (artist.name.toLowerCase().startsWith(valueSearch.value.toLowerCase())) {
-                        option.value = artist.name + " -Artist";
-                        suggestions.appendChild(option);
-                    }
-                    artist.members.forEach(function (member) {
-                        if (member.toLowerCase().startsWith(valueSearch.value.toLowerCase())) {
-                            option.value = member + " -Member";
+                if (valueSearch.value.length > 3) {
+                    data.artists.forEach(function (artist) {
+                        if (artist.name.toLowerCase().includes(takeFirstLetter)) {
+                            if (valueSearch.value.startsWith(takeFirstLetter)) {
+                                let option = document.createElement("option");
+                                option.value = artist.name + " -Artist";
+                                suggestions.appendChild(option);
+                            }
+                        }
+                        artist.members.forEach(function (member) {
+                            if (member.toLowerCase().includes(takeFirstLetter)) {
+                                if (valueSearch.value.startsWith(takeFirstLetter)) {
+                                    let option = document.createElement("option");
+                                    suggestions.appendChild(option);
+                                    option.value = member + " -Member";
+                                }
+                            }
+                        });
+                        if (artist.creationDate.toString().includes(takeFirstLetter)) {
+                            let option = document.createElement("option");
+                            option.value = artist.creationDate + " -Creation Date";
                             suggestions.appendChild(option);
                         }
+                        data.location.index.forEach(function (index) {
+                            index.locations.forEach(function (location) {
+                                if (location.toLowerCase().includes(takeFirstLetter)) {
+                                    let option = document.createElement("option");
+                                    option.value = location + "-" + artist.name + " -Location";
+                                    suggestions.appendChild(option);
+                                }
+                            });
+                        });
                     });
-                    if (artist.creationDate.toString().startsWith(valueSearch.value.toLowerCase())) {
-                        option.value = artist.creationDate + " -Creation Date";
-                        suggestions.appendChild(option);
-                    }
-                });
-                data.location.index.forEach(function (index) {
-                    index.locations.forEach(function (location) {
-                        if (location.toLowerCase().startsWith(valueSearch.value.toLowerCase())) {
-                            let option = location + " -Location";
-                            valueSearch.setAttribute("placeholder", option)
-                        }
-                    });
-                });
-
+                }
                 valueSearch.addEventListener("input", function (event) {
                     data.artists.forEach(function (artist) {
                         if (event.target.value === artist.name + " -Artist") {
@@ -50,10 +57,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                 window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}`;
                         }
                     });
-                    data.location.index.forEach(function (location) {
-                        if (event.target.value === location + " -Location") {
-                            window.location.href = `http://localhost:8080/artistinfo?artist=${location.id}`;
-                        }
+                    data.location.index.forEach(function (index) {
+                        index.locations.forEach(function (location) {
+                            if (event.target.value === location + " -Location") {
+                                window.location.href = `http://localhost:8080/artistinfo?artist=${index.id}`;
+                            }
+                        })
                     })
                 });
             })
