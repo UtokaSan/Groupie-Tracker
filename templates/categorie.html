@@ -4,18 +4,50 @@
     <meta charset="UTF-8">
     <title>ArtistInfo</title>
     <link href = "assets/styles/categorie.css" rel="stylesheet" />
+    <link href = "assets/styles/categorieFilter.css" rel="stylesheet" />
 </head>
-<body style = "overflow: hidden">
-<div id="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+<body >
+<div id="membres-group">
+    <label for="membres-group">Nombre de membres :</label>
+    <div class="membre">
+        <input type="checkbox" id="membres-1" name="membres" value="1">
+        <label for="membres-1">1</label>
+    </div>
+    <div class="membre">
+        <input type="checkbox" id="membres-2" name="membres" value="2">
+        <label for="membres-2">2</label>
+    </div>
+    <div class="membre">
+        <input type="checkbox" id="membres-3" name="membres" value="3">
+        <label for="membres-3">3</label>
+    </div>
+    <div class="membre">
+        <input type="checkbox" id="membres-4" name="membres" value="4">
+        <label for="membres-4">4</label>
+    </div>
+    <div class="membre">
+        <input type="checkbox" id="membres-5" name="membres" value="5">
+        <label for="membres-5">5</label>
+    </div>
+    <div class="membre">
+        <input type="checkbox" id="membres-6" name="membres" value="6">
+        <label for="membres-6">6</label>
+    </div>
+    <div class="membre">
+        <input type="checkbox" id="membres-7" name="membres" value="7">
+        <label for="membres-7">7</label>
+    </div>
+    <label for="date-min">Date minimum :</label>
+    <input type="number" min="1900" max="2099" id="date-min" name="date-min">
 </div>
+
 <div id = "test"></div>
 <div class= "ariste">
 </div>
-<div class="disk">
-    <img src="assets/media/disk.png" alt="">
-</div>
-<script src = "assets/scripts/categorieLoadingBar.js"></script>
+
+<ul id="group-list">
+</ul>
 <script src = "assets/scripts/categorieArtists.js"></script>
+<script src = "assets/scripts/categorieFilter.js"></script>
 </body>
 </html>

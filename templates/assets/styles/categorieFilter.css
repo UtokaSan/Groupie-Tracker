@@ -1,0 +1,30 @@
+label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+input[type="number"],
+input[type="date"],
+input[type="checkbox"] {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+li span {
+    font-weight: bold;
+    margin-right: 10px;
+}
