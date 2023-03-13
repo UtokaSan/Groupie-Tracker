@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     let urlNewPage = `http://localhost:8080/artistinfo?${urlParameter.toString()}`
                     window.location.href = urlNewPage
                 });
+                console.log(value.locations)
             });
         })
         .catch(error => console.error(error))
