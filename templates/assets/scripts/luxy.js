@@ -3,7 +3,6 @@
         'use strict';
 
         if (typeof define === 'function' && define.amd) {
-            // AMD. Register as an anonymous module.
             define([], factory);
         }
         else if (typeof exports === 'object') {
@@ -11,7 +10,6 @@
             module.exports = factory();
         }
         else {
-            // BROWSER
             root.luxy = factory();
         }
     }(this, function() {
