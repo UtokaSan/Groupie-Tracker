@@ -17,6 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelector(".test").appendChild(createParagraph)
             document.querySelector(".title_paralax").textContent = data.artist.name
             document.querySelector(".about__p").textContent = data.artist.creationDate
+            for (var i = 0; i < data.dates.dates.length; i++) {
+                let createSpan = document.createElement("span")
+                createSpan.className = "serv__item-text"
+                let textNode = document.createTextNode(data.dates.dates[i])
+                createSpan.appendChild(textNode)
+                document.querySelector(".serv__item-txt").appendChild(createSpan)
+            }
         })
         .catch(error => console.error(error))
 })
