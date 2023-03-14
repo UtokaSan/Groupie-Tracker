@@ -10,10 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
     })
         .then(response => response.json())
         .then(data => {
+            let createParagraph = document.createElement("p")
             document.querySelector(".title_paralax").textContent = data.artist.name
-
             document.querySelector(".about__p").textContent = data.artist.creationDate
-            console.log(data)
         })
         .catch(error => console.error(error))
 })
