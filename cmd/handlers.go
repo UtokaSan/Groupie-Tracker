@@ -69,30 +69,37 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 	data, _ := ioutil.ReadAll(r.Body)
 	input := string(data)[7 : len(data)-2]
 	fmt.Println("test :", input)
+	defer r.Body.Close()
 	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + input)
 	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/" + input)
 	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/" + input)
-	var artist ImageID
-	var location Location
-	var dates Date
-	respArtists, err := ioutil.ReadAll(getArtists.Body)
-	respLocations, err := ioutil.ReadAll(getLocation.Body)
-	respDates, err := ioutil.ReadAll(getDates.Body)
-	err = json.Unmarshal(respArtists, &artist)
-	err = json.Unmarshal(respLocations, &location)
-	err = json.Unmarshal(respDates, &dates)
-	fmt.Println("Structure requete :", artist)
-	fmt.Println("Corps requete : ", string(respLocations))
 	if err != nil {
 		fmt.Println(err)
 	}
-	dataResult := ArtistInformation{
-		Artist:   artist,
-		Location: location,
-		Dates:    dates,
-	}
-	fmt.Println(dates)
-	json.NewEncoder(w).Encode(&dataResult)
+	var artist ImageID
+	var location Location
+	var dates Date
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		respArtists, err := ioutil.ReadAll(getArtists.Body)
+		respLocations, err := ioutil.ReadAll(getLocation.Body)
+		respDates, err := ioutil.ReadAll(getDates.Body)
+		err = json.Unmarshal(respArtists, &artist)
+		err = json.Unmarshal(respLocations, &location)
+		err = json.Unmarshal(respDates, &dates)
+		dataResult := ArtistInformation{
+			Artist:   artist,
+			Location: location,
+			Dates:    dates,
+		}
+		if err != nil {
+			fmt.Println(err)
+		}
+		json.NewEncoder(w).Encode(&dataResult)
+	}()
+	wg.Wait()
 }
 
 func ApiGenre(w http.ResponseWriter, r *http.Request) {

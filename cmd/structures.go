@@ -1,5 +1,9 @@
 package cmd
 
+type Input struct {
+	Input string `json:"input"`
+}
+
 type ImageID struct {
 	ID           int      `json:"id"`
 	Image        string   `json:"image"`
