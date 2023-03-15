@@ -111,7 +111,6 @@ func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var artist []ImageID
 	var locations AllLocation
-	var dates AllDates
 	respArtist, err := ioutil.ReadAll(getArtist.Body)
 	respLocation, err := ioutil.ReadAll(getLocation.Body)
 	if err != nil {
