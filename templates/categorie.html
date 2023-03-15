@@ -8,54 +8,24 @@
 </head>
 <body >
 <div id="membres-group">
-    <label for="membres-group">Nombre de membres :</label>
-    <div class="membre">
-        <input type="checkbox" id="membres-1" name="membres" value="1">
-        <label for="membres-1">1</label>
+    <div>
+        <label for="dateCreation">Date de création :</label>
+        <input type="number" min="1900" max="2099" id="dateCreation" name="date-min">
     </div>
-    <div class="membre">
-        <input type="checkbox" id="membres-2" name="membres" value="2">
-        <label for="membres-2">2</label>
+    <div>
+        <label for = "members">Nombre de membre :</label>
+        <input type = "number" id = "members" min = "1" max = "8" name = "members">
     </div>
-    <div class="membre">
-        <input type="checkbox" id="membres-3" name="membres" value="3">
-        <label for="membres-3">3</label>
+    <div>
+        <label for = "album-date">Date 1er album :</label>
+        <input type = "number" min="1900" max="2099" id = "album-date" name="album-date">
     </div>
-    <div class="membre">
-        <input type="checkbox" id="membres-4" name="membres" value="4">
-        <label for="membres-4">4</label>
-    </div>
-    <div class="membre">
-        <input type="checkbox" id="membres-5" name="membres" value="5">
-        <label for="membres-5">5</label>
-    </div>
-    <div class="membre">
-        <input type="checkbox" id="membres-6" name="membres" value="6">
-        <label for="membres-6">6</label>
-    </div>
-    <div class="membre">
-        <input type="checkbox" id="membres-7" name="membres" value="7">
-        <label for="membres-7">7</label>
-    </div>
-    <label for="date-min">Date minimum :</label>
-    <input type="number" min="1900" max="2099" id="date-min" name="date-min">
+    <button onclick="filterArtists()">Filtrer</button>
 </div>
 
 <div id = "test"></div>
 <div class= "ariste">
 </div>
-
-<ul id="group-list">
-</ul>
-<ul id="menu-demo2">
-    <li><a href="#">Lien menu 1</a>
-        <ul>
-            <li><a href="#">lien sous menu 1</a></li>
-            <li><a href="#">lien sous menu 1</a></li>
-            <li><a href="#">lien sous menu 1</a></li>
-            <li><a href="#">lien sous menu 1</a></li>
-        </ul>
 <script src = "assets/scripts/categorieArtists.js"></script>
-<script src = "assets/scripts/categorieFilter.js"></script>
 </body>
 </html>

@@ -70,12 +70,24 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 	input := string(data)[7 : len(data)-2]
 	fmt.Println("test :", input)
 	defer r.Body.Close()
-	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + input)
-	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/" + input)
-	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/" + input)
+	getArtist, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + input)
 	if err != nil {
-		fmt.Println(err)
+		http.Error(w, "Failed get Artist", http.StatusInternalServerError)
+		return
 	}
+	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations/" + input)
+	if err != nil {
+		http.Error(w, "Failed get Location", http.StatusInternalServerError)
+		return
+	}
+	getDate, err := http.Get("https://groupietrackers.herokuapp.com/api/dates/" + input)
+	if err != nil {
+		http.Error(w, "Failed get Dates", http.StatusInternalServerError)
+		return
+	}
+	defer getArtist.Body.Close()
+	defer getLocation.Body.Close()
+	defer getDate.Body.Close()
 	var artist ImageID
 	var location Location
 	var dates Date
@@ -83,9 +95,21 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		respArtists, err := ioutil.ReadAll(getArtists.Body)
+		respArtists, err := ioutil.ReadAll(getArtist.Body)
+		if err != nil {
+			http.Error(w, "Failed request Artist", http.StatusInternalServerError)
+			return
+		}
 		respLocations, err := ioutil.ReadAll(getLocation.Body)
-		respDates, err := ioutil.ReadAll(getDates.Body)
+		if err != nil {
+			http.Error(w, "Failed request Location", http.StatusInternalServerError)
+			return
+		}
+		respDates, err := ioutil.ReadAll(getDate.Body)
+		if err != nil {
+			http.Error(w, "Failed request Date", http.StatusInternalServerError)
+			return
+		}
 		err = json.Unmarshal(respArtists, &artist)
 		err = json.Unmarshal(respLocations, &location)
 		err = json.Unmarshal(respDates, &dates)
@@ -94,9 +118,6 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 			Location: location,
 			Dates:    dates,
 		}
-		if err != nil {
-			fmt.Println(err)
-		}
 		json.NewEncoder(w).Encode(&dataResult)
 	}()
 	wg.Wait()
@@ -104,22 +125,31 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 
 func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	getArtist, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	if err != nil {
+		http.Error(w, "Failed get Artist", http.StatusInternalServerError)
+		return
+	}
 	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
 	if err != nil {
-		fmt.Println(err)
+		http.Error(w, "Failed get Location", http.StatusInternalServerError)
+		return
 	}
-	defer r.Body.Close()
 	var artist []ImageID
 	var locations AllLocation
 	respArtist, err := ioutil.ReadAll(getArtist.Body)
+	if err != nil {
+		http.Error(w, "Failed request Artist", http.StatusInternalServerError)
+		return
+	}
 	respLocation, err := ioutil.ReadAll(getLocation.Body)
 	if err != nil {
-		fmt.Println(err)
+		http.Error(w, "Failed request Location", http.StatusInternalServerError)
+		return
 	}
+	defer getArtist.Body.Close()
+	defer getLocation.Body.Close()
 	data, _ := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
+	defer r.Body.Close()
 	input := string(data)[7 : len(data)-2]
 	fmt.Println(input)
 	err = json.Unmarshal(respArtist, &artist)
@@ -128,7 +158,6 @@ func ApiGenre(w http.ResponseWriter, r *http.Request) {
 		Artists:  artist,
 		Location: locations,
 	}
-
 	var genreArtist []ImageID
 	var wg sync.WaitGroup
 	for _, values := range dataResult.Artists {
@@ -154,23 +183,45 @@ func ApiGenre(w http.ResponseWriter, r *http.Request) {
 
 func SearchBar(w http.ResponseWriter, r *http.Request) {
 	getArtists, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
-	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
+	if err != nil {
+		http.Error(w, "Failed get Artists", http.StatusInternalServerError)
+		return
+	}
+	getLocations, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
+	if err != nil {
+		http.Error(w, "Failed get Locations", http.StatusInternalServerError)
+		return
+	}
 	getDates, err := http.Get("https://groupietrackers.herokuapp.com/api/dates")
-	var artist []ImageID
-	var location AllLocation
+	if err != nil {
+		http.Error(w, "Failed get Dates", http.StatusInternalServerError)
+		return
+	}
+	var artists []ImageID
+	var locations AllLocation
 	var dates AllDates
 	respArtists, err := ioutil.ReadAll(getArtists.Body)
-	respLocations, err := ioutil.ReadAll(getLocation.Body)
-	respDates, err := ioutil.ReadAll(getDates.Body)
-	err = json.Unmarshal(respArtists, &artist)
-	err = json.Unmarshal(respLocations, &location)
-	err = json.Unmarshal(respDates, &dates)
 	if err != nil {
-		fmt.Println("erreur")
+		http.Error(w, "Failed request Artists", http.StatusInternalServerError)
+		return
 	}
+	respLocations, err := ioutil.ReadAll(getLocations.Body)
+	if err != nil {
+		http.Error(w, "Failed request Locations", http.StatusInternalServerError)
+		return
+	}
+	respDates, err := ioutil.ReadAll(getDates.Body)
+	if err != nil {
+		http.Error(w, "Failed request Dates", http.StatusInternalServerError)
+		return
+	}
+	err = json.Unmarshal(respArtists, &artists)
+	err = json.Unmarshal(respLocations, &locations)
+	err = json.Unmarshal(respDates, &dates)
+
 	data := Test{
-		Artists:  artist,
-		Location: location,
+		Artists:  artists,
+		Location: locations,
 		Dates:    dates,
 	}
 	json.NewEncoder(w).Encode(&data)

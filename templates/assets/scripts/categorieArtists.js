@@ -1,9 +1,62 @@
-
 const urlParams = new URLSearchParams(window.location.search);
 const test = document.getElementById("test");
 const id = urlParams.get('genre');
 
 const data = {id};
+
+
+function filterArtists() {
+    const dateCreation = document.getElementById("dateCreation").value;
+    const members = document.getElementById("members").value;
+    const firstAlbum = document.getElementById("album-date").value;
+
+    const artists = document.querySelectorAll('.artist');
+    const artist1 = document.querySelectorAll('.artist1');
+    const artist2 = document.querySelectorAll('.artist2');
+
+    artists.forEach(artist => {
+        const years = artist.querySelector('button').getAttribute('data-years');
+        const nbMembers = artist.querySelector('button').getAttribute('data-members');
+        const album = artist.querySelector('button').getAttribute('data-years-first-album');
+
+        if ((dateCreation && years < dateCreation) ||
+            (members && nbMembers != members) ||
+            (firstAlbum && album > firstAlbum)) {
+            artist.style.display = "none";
+        } else {
+            artist.style.display = "block";
+        }
+    });
+
+    artist1.forEach(artist => {
+        const years = artist.querySelector('button').getAttribute('data-years');
+        const nbMembers = artist.querySelector('button').getAttribute('data-members');
+        const album = artist.querySelector('button').getAttribute('data-years-first-album');
+
+        if ((dateCreation && years < dateCreation) ||
+            (members && nbMembers != members) ||
+            (firstAlbum && album > firstAlbum)) {
+            artist.style.display = "none";
+        } else {
+            artist.style.display = "block";
+        }
+    });
+
+    artist2.forEach(artist => {
+        const years = artist.querySelector('button').getAttribute('data-years');
+        const nbMembers = artist.querySelector('button').getAttribute('data-members');
+        const album = artist.querySelector('button').getAttribute('data-years-first-album');
+
+        if ((dateCreation && years < dateCreation) ||
+            (members && nbMembers != members) ||
+            (firstAlbum && album > firstAlbum)) {
+            artist.style.display = "none";
+        } else {
+            artist.style.display = "block";
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     fetch('/api/genre', {
         method: 'POST',
@@ -12,17 +65,16 @@ document.addEventListener('DOMContentLoaded', function () {
     })
         .then(response => response.json())
         .then(data => {
-            data.artists.forEach(function callback(value, index)  {
+            data.artists.forEach(function callback(artist, index)  {
                 var button = document.createElement("button");
                 const img = document.createElement('img');
                 const div = document.createElement('div');
-                img.src = value.image;
+                img.src = artist.image;
                 button.classList.add("name" + index)
-                button.textContent = value.name;
-                button.setAttribute("data-years", value.creationDate)
-                button.setAttribute("data-years-first-album", value.firstAlbum)
-                button.setAttribute("data-members", value.members.length)
-                button.setAttribute("data-locations", value.location)
+                button.textContent = artist.name;
+                button.setAttribute("data-years", artist.creationDate)
+                button.setAttribute("data-years-first-album", artist.firstAlbum)
+                button.setAttribute("data-members", artist.members.length)
                 if (index >= 6 && index < 12) {
                     div.classList.add("artist1");
                 } else if (index >= 12 && index < 18) {
@@ -33,14 +85,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 div.appendChild(img);
                 div.appendChild(button);
                 test.appendChild(div);
+                data.location.index.forEach(function callback(value, index) {
+                    if (value.id === artist.id) {
+                        button.setAttribute("data-location", value.locations)
+                    }
+                })
                 button.addEventListener('click', function () {
                     let urlParameter = new URLSearchParams();
-                    urlParameter.append('artist', value.id);
+                    urlParameter.append('artist', artist.id);
                     let urlNewPage = `http://localhost:8080/artistinfo?${urlParameter.toString()}`
                     window.location.href = urlNewPage
                 });
-                console.log(value.locations)
             });
+            filterArtists();
         })
         .catch(error => console.error(error))
 })
