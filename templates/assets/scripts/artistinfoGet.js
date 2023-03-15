@@ -43,6 +43,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 servItem.appendChild(servItemTxt);
                 servList.appendChild(servItem);
             }
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: {lat: 48.8566, lng: 2.3522},
+                zoom: 2
+            });
+            data.location.locations.forEach(city => {
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: city }, (results, status) => {
+                    if (status === 'OK') {
+                        const lat = results[0].geometry.location.lat();
+                        const lng = results[0].geometry.location.lng();
+                        new google.maps.Marker({
+                            position: { lat, lng },
+                            map,
+                            title: city
+                        });
+                    } else {
+                        console.log("Geocode n'a pas fonctionné :" + status);
+                    }
+                });
+            });
         })
         .catch(error => console.error(error))
 })
