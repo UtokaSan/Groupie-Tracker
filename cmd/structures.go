@@ -27,6 +27,7 @@ type ArtistInformation struct {
 
 type AllDateLocation struct {
 	Index []struct {
+		Name          string
 		ID            int                 `json:"id"`
 		DatesLocation map[string][]string `json:"datesLocations"`
 	} `json:"index"`
@@ -57,6 +58,7 @@ type Date struct {
 type Location struct {
 	ID        int      `json:"id"`
 	Locations []string `json:"locations"`
+	Genre     string
 }
 type DateLocation struct {
 	ID            int                 `json:"id"`

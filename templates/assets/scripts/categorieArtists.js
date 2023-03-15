@@ -12,13 +12,17 @@ document.addEventListener('DOMContentLoaded', function () {
     })
         .then(response => response.json())
         .then(data => {
-            data.forEach(function callback(value, index)  {
+            data.artists.forEach(function callback(value, index)  {
                 var button = document.createElement("button");
                 const img = document.createElement('img');
                 const div = document.createElement('div');
                 img.src = value.image;
                 button.classList.add("name" + index)
                 button.textContent = value.name;
+                button.setAttribute("data-years", value.creationDate)
+                button.setAttribute("data-years-first-album", value.firstAlbum)
+                button.setAttribute("data-members", value.members.length)
+                button.setAttribute("data-locations", value.location)
                 if (index >= 6 && index < 12) {
                     div.classList.add("artist1");
                 } else if (index >= 12 && index < 18) {

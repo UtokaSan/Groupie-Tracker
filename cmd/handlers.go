@@ -103,12 +103,17 @@ func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func ApiGenre(w http.ResponseWriter, r *http.Request) {
-	get, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	getArtist, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	getLocation, err := http.Get("https://groupietrackers.herokuapp.com/api/locations")
 	if err != nil {
 		fmt.Println(err)
 	}
-	defer get.Body.Close()
-	resp, err := ioutil.ReadAll(get.Body)
+	defer r.Body.Close()
+	var artist []ImageID
+	var locations AllLocation
+	var dates AllDates
+	respArtist, err := ioutil.ReadAll(getArtist.Body)
+	respLocation, err := ioutil.ReadAll(getLocation.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -118,12 +123,16 @@ func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	}
 	input := string(data)[7 : len(data)-2]
 	fmt.Println(input)
-	var artist []ImageID
-	err = json.Unmarshal(resp, &artist)
+	err = json.Unmarshal(respArtist, &artist)
+	err = json.Unmarshal(respLocation, &locations)
+	dataResult := Test{
+		Artists:  artist,
+		Location: locations,
+	}
 
 	var genreArtist []ImageID
 	var wg sync.WaitGroup
-	for _, values := range artist {
+	for _, values := range dataResult.Artists {
 		wg.Add(1)
 		go func(values ImageID) {
 			defer wg.Done()
@@ -140,7 +149,8 @@ func ApiGenre(w http.ResponseWriter, r *http.Request) {
 	}
 	wg.Wait()
 	fmt.Println(genreArtist)
-	json.NewEncoder(w).Encode(genreArtist)
+	dataResult.Artists = genreArtist
+	json.NewEncoder(w).Encode(dataResult)
 }
 
 func SearchBar(w http.ResponseWriter, r *http.Request) {
