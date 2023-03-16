@@ -9,7 +9,7 @@ function filterArtists() {
     const dateCreation = document.getElementById("dateCreation").value;
     const members = document.getElementById("members").value;
     const firstAlbum = document.getElementById("album-date").value;
-
+    const locationArtist = document.getElementById("location").value;
     const artists = document.querySelectorAll('.artist');
     const artist1 = document.querySelectorAll('.artist1');
     const artist2 = document.querySelectorAll('.artist2');
@@ -18,13 +18,19 @@ function filterArtists() {
         const years = artist.querySelector('button').getAttribute('data-years');
         const nbMembers = artist.querySelector('button').getAttribute('data-members');
         const album = artist.querySelector('button').getAttribute('data-years-first-album');
+        const location = artist.querySelector('button').getAttribute('data-location');
 
         if ((dateCreation && years < dateCreation) ||
-            (members && nbMembers != members) ||
-            (firstAlbum && album > firstAlbum)) {
+            (members && nbMembers !== members) ||
+            (firstAlbum && album > firstAlbum) ||
+            (locationArtist && location === locationArtist)) {
             artist.style.display = "none";
         } else {
-            artist.style.display = "block";
+            if (!locationArtist || location.split(',').includes(locationArtist) || locationArtist === "location") {
+                artist.style.display = "block";
+            } else {
+                artist.style.display = "none";
+            }
         }
     });
 
@@ -32,13 +38,19 @@ function filterArtists() {
         const years = artist.querySelector('button').getAttribute('data-years');
         const nbMembers = artist.querySelector('button').getAttribute('data-members');
         const album = artist.querySelector('button').getAttribute('data-years-first-album');
+        const location = artist.querySelector('button').getAttribute('data-location');
 
         if ((dateCreation && years < dateCreation) ||
-            (members && nbMembers != members) ||
-            (firstAlbum && album > firstAlbum)) {
+            (members && nbMembers !== members) ||
+            (firstAlbum && album > firstAlbum) ||
+            (locationArtist && location === locationArtist)) {
             artist.style.display = "none";
         } else {
-            artist.style.display = "block";
+            if (!locationArtist || location.split(',').includes(locationArtist) || locationArtist === "location") {
+                artist.style.display = "block";
+            } else {
+                artist.style.display = "none";
+            }
         }
     });
 
@@ -46,13 +58,19 @@ function filterArtists() {
         const years = artist.querySelector('button').getAttribute('data-years');
         const nbMembers = artist.querySelector('button').getAttribute('data-members');
         const album = artist.querySelector('button').getAttribute('data-years-first-album');
+        const location = artist.querySelector('button').getAttribute('data-location');
 
         if ((dateCreation && years < dateCreation) ||
-            (members && nbMembers != members) ||
-            (firstAlbum && album > firstAlbum)) {
+            (members && nbMembers !== members) ||
+            (firstAlbum && album > firstAlbum) ||
+            (locationArtist && location === locationArtist)) {
             artist.style.display = "none";
         } else {
-            artist.style.display = "block";
+            if (!locationArtist || location.split(',').includes(locationArtist) || locationArtist === "location") {
+                artist.style.display = "block";
+            } else {
+                artist.style.display = "none";
+            }
         }
     });
 }
@@ -87,6 +105,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 test.appendChild(div);
                 data.location.index.forEach(function callback(value, index) {
                     if (value.id === artist.id) {
+                        let optionCreate = document.createElement("option");
+                        //Corriger car il ne met pas toutes locations dans les options
+                        value.locations.forEach(function (loc) {
+                            optionCreate.textContent = loc
+                            document.querySelector("#location").appendChild(optionCreate)
+                            console.log(loc)
+                        })
                         button.setAttribute("data-location", value.locations)
                     }
                 })
