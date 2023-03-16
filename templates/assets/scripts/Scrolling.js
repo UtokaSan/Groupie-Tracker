@@ -27,7 +27,7 @@
     function b(e){var f=(e=e||{}).key
         return m(e.target||"[data-splitting]").map(function(a){var s=a["🍌"]
             if(!e.force&&s)return s
-            s=a["🍌"]={el:a}
+            s=a[""]={el:a}
             var n=e.by||h(a,"splitting")
             n&&"true"!=n||(n=y)
             var t=r(n),l=function(n,t){for(var e in t)n[e]=t[e]
