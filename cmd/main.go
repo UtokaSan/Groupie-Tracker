@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-const port = ":3001"
+const port = ":8080"
 
 func Runner() {
 	server := http.NewServeMux()
