@@ -1,6 +1,8 @@
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('artist');
+const idAlbum = urlParams.get('name');
 const data = {id}
+const dataAlbum = {idAlbum}
 console.log("test")
 document.addEventListener('DOMContentLoaded', function () {
     fetch('/get/artistinfo', {
@@ -64,6 +66,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 });
             });
+        })
+        .catch(error => console.error(error))
+})
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('/get/artistinfoalbum', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dataAlbum)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
         })
         .catch(error => console.error(error))
 })

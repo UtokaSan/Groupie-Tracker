@@ -1,6 +1,6 @@
-const urlParams = new URLSearchParams(window.location.search);
+const urlParamsGetGenre = new URLSearchParams(window.location.search);
 const test = document.getElementById("test");
-const id = urlParams.get('genre');
+const id = urlParamsGetGenre.get('genre');
 
 const data = {id};
 
@@ -117,8 +117,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 button.addEventListener('click', function () {
                     let urlParameter = new URLSearchParams();
+                    let urlParameterName = new URLSearchParams()
                     urlParameter.append('artist', artist.id);
-                    let urlNewPage = `http://localhost:8080/artistinfo?${urlParameter.toString()}`
+                    urlParameterName.append('name', artist.name)
+                    let urlNewPage = `http://localhost:8080/artistinfo?${urlParameter.toString()}&${urlParameterName.toString()}`
                     window.location.href = urlNewPage
                 });
             });

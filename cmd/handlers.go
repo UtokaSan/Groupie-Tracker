@@ -64,6 +64,23 @@ func InformationArtistTag(name string) string {
 	}
 	return "bad"
 }
+func InformationArtistAlbum(w http.ResponseWriter, r *http.Request) {
+	data, _ := ioutil.ReadAll(r.Body)
+	input := string(data)[12 : len(data)-2]
+	defer r.Body.Close()
+	apikey := "471f5119aa12d32718ae05f982f745dc"
+	get, err := http.Get("https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=cher&api_key=" + url.QueryEscape(input) + "&api_key=" + apikey + "&format=json")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer get.Body.Close()
+	resp, err := ioutil.ReadAll(get.Body)
+	var artistTopTags AllTags
+	err = json.Unmarshal(resp, &artistTopTags)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
 
 func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 	data, _ := ioutil.ReadAll(r.Body)
