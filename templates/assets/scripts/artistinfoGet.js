@@ -76,12 +76,11 @@ document.addEventListener('DOMContentLoaded', function () {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             let createParagraph = document.createElement("p");
             let createParagraph1 = document.createElement("p");
             createParagraph.className = "about__p"
             createParagraph1.className = "about__p"
-            let textNode = document.createTextNode(`Nombre d'écoute : ${data.allListeners.artist.stats.listeners}`)
+            let textNode = document.createTextNode(`Number of Listeners : ${data.allListeners.artist.stats.listeners}`)
             str = data.allListeners.artist.bio.summary.replace(/<a[^>]*>([^<]*)<\/a>/g, "$1");
             str = str.replace("Read more on Last.fm", '');
             let textNode1 = document.createTextNode(`Autobiography : ${str}`)
@@ -103,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         parentImageTarget.style.display = 'none';
                     };
                     targetElement.appendChild(createImage);
-                    console.log(data.allAlbum.topalbums.album[j].image[3]['#text']);
                 }
             }
         })

@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('/post/searchbar')
+    fetch('/post/searchbar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+    })
         .then(response => response.json())
         .then(data => {
             let valueSearch = document.getElementById("search-input");

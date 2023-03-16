@@ -14,7 +14,7 @@ type ImageID struct {
 	Locations    string   `json:"locations"`
 	Genre        string
 }
-type Test struct {
+type AllArtistInformation struct {
 	Artists  []ImageID   `json:"artists"`
 	Location AllLocation `json:"location"`
 	Dates    AllDates    `json:"dates"`

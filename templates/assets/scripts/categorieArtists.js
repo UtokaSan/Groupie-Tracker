@@ -110,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         value.locations.forEach(function (loc) {
                             optionCreate.textContent = loc
                             document.querySelector("#location").appendChild(optionCreate)
-                            console.log(loc)
                         })
                         button.setAttribute("data-location", value.locations)
                     }
