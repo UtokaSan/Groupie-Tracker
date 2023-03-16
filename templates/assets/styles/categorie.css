@@ -12,7 +12,7 @@ body {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 40px;
-    margin: 50px auto 0;
+    margin: 50px auto 0;:
     max-width: 600px;
 }
 
@@ -24,6 +24,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .membre {
     display: flex;
     align-items: center;
@@ -31,7 +32,7 @@ body {
     justify-content: center;
     text-align: center;
 }
-button {
+#membres-group button {
     background: rgba(0,0,0,0);
     border-color: white;
     color: white;

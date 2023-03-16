@@ -3,18 +3,23 @@
     function d(n,t,e){n.style.setProperty(t,e)}function f(n,t){return n.appendChild(t)}function p(n,t,e,r){var i=o.createElement("span")
         return t&&(i.className=t),e&&(!r&&i.setAttribute("data-"+t,e),i.textContent=e),n&&f(n,i)||i}function h(n,t){return n.getAttribute("data-"+t)}function m(n,t){return n&&0!=n.length?n.nodeName?[n]:[].slice.call(n[0].nodeName?n:(t||o).querySelectorAll(n)):[]}function u(n){for(var t=[];n--;)t[n]=[]
         return t}function v(n,t){n&&n.some(t)}function c(t){return function(n){return t[n]}}var a={}
+
     function n(n,t,e,r){return{by:n,depends:t,key:e,split:r}}function r(n){return function t(e,n,r){var i=r.indexOf(e)
         if(-1==i){r.unshift(e)
+
             var o=a[e]
             if(!o)throw new Error("plugin not loaded: "+e)
             v(o.depends,function(n){t(n,e,r)})}else{var u=r.indexOf(n)
             r.splice(i,1),r.splice(u,0,e)}return r}(n,0,[]).map(c(a))}function t(n){a[n.by]=n}function g(n,r,i,o,u){n.normalize()
+
         var c=[],a=document.createDocumentFragment()
         o&&c.push(n.previousSibling)
+
         var s=[]
         return m(n.childNodes).some(function(n){if(!n.tagName||n.hasChildNodes()){if(n.childNodes&&n.childNodes.length)return s.push(n),void c.push.apply(c,g(n,r,i,o,u))
             var t=n.wholeText||"",e=t.trim()
             e.length&&(" "===t[0]&&s.push(l(" ")),v(e.split(i),function(n,t){t&&u&&s.push(p(a,"whitespace"," ",u))
+
                 var e=p(a,r,n)
                 c.push(e),s.push(e)})," "===t[t.length-1]&&s.push(l(" ")))}else s.push(n)}),v(s,function(n){f(a,n)}),n.innerHTML="",f(n,a),c}var s=0
     var i="words",e=n(i,s,"word",function(n){return g(n,"word",/\s+/,0,1)}),y="chars",w=n(y,[i],"char",function(n,e,t){var r=[]

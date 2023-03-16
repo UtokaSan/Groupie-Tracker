@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     'use strict';
 
-
-
     Splitting();
     luxy.init();
     gsap.registerPlugin(ScrollTrigger);
@@ -23,9 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
             scrub: 1.9
         });
     });
-
-
-    //header
     function header() {
         gsap.to('.title_paralax', {
             scrollTrigger: {
@@ -78,8 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     header();
 
-
-    //about
     function about() {
         gsap.from('.about__img', {
             scrollTrigger: {
@@ -108,8 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     about();
 
-
-    //benefits
     function benefits() {
         gsap.from('.benefits__num', {
             x: (i, el) => (1 - parseFloat(el.getAttribute('data-speed'))),
@@ -122,8 +113,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     benefits();
 
-
-    //portfolio
     function portfolio() {
         gsap.from('.work__item, .work__item-num', {
             y: (i, el) => (1 - parseFloat(el.getAttribute('data-speed'))),
@@ -144,8 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     portfolio();
 
-
-    //serv
     function serv() {
         gsap.from('.serv__item-arrow', {
             x: (i, el) => (1 - parseFloat(el.getAttribute('data-speed'))),
@@ -158,8 +145,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     serv();
 
-
-    //footer
     function footer() {
         gsap.from('.footer__div span', {
             y: (i, el) => (1 - parseFloat(el.getAttribute('data-speed'))),

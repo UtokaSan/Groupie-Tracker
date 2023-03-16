@@ -6,7 +6,6 @@
             define([], factory);
         }
         else if (typeof exports === 'object') {
-            // COMMONJS
             module.exports = factory();
         }
         else {
