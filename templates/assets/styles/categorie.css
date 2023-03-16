@@ -27,8 +27,12 @@ body {
     padding: 50px 50px 50px 50px;
     border: white 2px solid;
 }
-#members-child {
+#members-child > div {
+    margin-bottom: 50px;
+}
 
+#members-child label {
+    margin-top: 50px;
 }
 label {
     color: white;
