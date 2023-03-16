@@ -1,5 +1,3 @@
-/* 1.1.general-setting-pages *************************/
-/****************************************************/
 :root {
     --pr-color: #fff;
     --second-color: #0a0a0a;
@@ -20,7 +18,6 @@ body {
     background: var(--second-color);
 }
 
-/******************************************/
 section {
     padding-top: 150px;
     padding-bottom: 50px;
@@ -42,8 +39,6 @@ section {
     display: inline-block;
 }
 
-/* Paralax Effect On GSAP **********************************/
-/* header ********/
 .header {
     position: relative;
     display: flex;
@@ -165,8 +160,6 @@ section {
     transform: translate(-50%, -50%);
     z-index: -1;
 }
-
-/* about ********/
 .about .section-title {
     text-align: left;
 }
@@ -203,8 +196,6 @@ section {
     height: 100%;
     object-fit: cover;
 }
-
-/* benefits ********/
 .benefits__list {
     display: flex;
     flex-wrap: wrap;
@@ -231,7 +222,6 @@ section {
     color: #4b4b4b;
 }
 
-/* work ********/
 .work {
     padding-top: 150px;
 }
