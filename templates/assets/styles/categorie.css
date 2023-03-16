@@ -19,6 +19,10 @@ body {
 #test img {
     width: 150px;
 }
+#test > div > button{
+    border-radius: 10px;
+    border-color: #0a0a0a;
+}
 #membres-group {
     display: flex;
     flex-direction: column;
@@ -39,7 +43,9 @@ label {
 }
 #membres-group button {
     background: rgba(0,0,0,0);
-    border-color: white;
     color: white;
+}
+#test > div {
+    border: black 2px solid;
 }
 
