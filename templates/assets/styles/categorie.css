@@ -46,6 +46,7 @@ label {
     color: white;
 }
 #test > div {
+    text-align: center;
     border: black 2px solid;
 }
 
