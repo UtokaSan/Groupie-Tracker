@@ -69,17 +69,27 @@ func InformationArtistAlbum(w http.ResponseWriter, r *http.Request) {
 	input := string(data)[12 : len(data)-2]
 	defer r.Body.Close()
 	apikey := "471f5119aa12d32718ae05f982f745dc"
-	get, err := http.Get("https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=cher&api_key=" + url.QueryEscape(input) + "&api_key=" + apikey + "&format=json")
+	getAlbum, err := http.Get("https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=" + url.QueryEscape(input) + "&api_key=" + "&api_key=" + apikey + "&format=json")
 	if err != nil {
 		fmt.Println(err)
 	}
-	defer get.Body.Close()
-	resp, err := ioutil.ReadAll(get.Body)
-	var artistTopTags AllTags
-	err = json.Unmarshal(resp, &artistTopTags)
+	getListeners, err := http.Get("https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + url.QueryEscape(input) + "&api_key=" + "&api_key=" + apikey + "&format=json")
 	if err != nil {
 		fmt.Println(err)
 	}
+	defer getAlbum.Body.Close()
+	respAlbum, err := ioutil.ReadAll(getAlbum.Body)
+	respListeners, err := ioutil.ReadAll(getListeners.Body)
+
+	var artistTopAlbum AllAlbum
+	var artistListeners AllListeners
+	err = json.Unmarshal(respAlbum, &artistTopAlbum)
+	err = json.Unmarshal(respListeners, &artistListeners)
+	dataResult := AllInfoArtist{
+		AllListeners: artistListeners,
+		AllAlbum:     artistTopAlbum,
+	}
+	json.NewEncoder(w).Encode(&dataResult)
 }
 
 func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {

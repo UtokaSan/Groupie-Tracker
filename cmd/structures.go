@@ -89,3 +89,22 @@ type Topalbums struct {
 		} `json:"image"`
 	} `json:"album"`
 }
+type ListenersArtist struct {
+	Stats struct {
+		Listeners string `json:"listeners"`
+		Playcount string `json:"playcount"`
+	} `json:"stats"`
+	Bio struct {
+		Summary string `json:"summary"`
+	} `json:"bio"`
+}
+type AllInfoArtist struct {
+	AllListeners AllListeners `json:"allListeners"`
+	AllAlbum     AllAlbum     `json:"allAlbum"`
+}
+type AllListeners struct {
+	ListenersArtist ListenersArtist `json:"artist"`
+}
+type AllAlbum struct {
+	Topalbums Topalbums `json:"topalbums"`
+}
