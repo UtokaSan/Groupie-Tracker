@@ -50,21 +50,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 event.preventDefault();
                 data.artists.forEach(function (artist) {
                     if (valueSearch.value === artist.name + " -Artist") {
-                        window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}&${artist.name}`;
+                        window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}&name=${artist.name}`;
                     }
                     artist.members.forEach(function (member) {
                         if (valueSearch.value === member + " -Member") {
-                            window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}&${artist.name}`;
+                            window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}&name=${artist.name}`;
                         }
                     });
                     if (valueSearch.value === `${artist.creationDate} - ${artist.name} -Creation Date`) {
-                        window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}&${artist.name}`;
+                        window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}&name=${artist.name}`;
                     }
                     data.location.index.forEach(function (index) {
                         index.locations.forEach(function (location) {
                             location = location.replace(/[-_]/g, ' ');
                             if (valueSearch.value === `${location} - ${artist.name}`) {
-                                window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}&${artist.name}`;
+                                window.location.href = `http://localhost:8080/artistinfo?artist=${artist.id}&name=${artist.name}`;
                             }
                         })
                     })
