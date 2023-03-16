@@ -78,3 +78,14 @@ type Toptags struct {
 type AllTags struct {
 	Toptags Toptags `json:"toptags"`
 }
+
+type Topalbums struct {
+	Album []struct {
+		Name      string `json:"name"`
+		Playcount int    `json:"playcount"`
+		Image     []struct {
+			Text string `json:"#text"`
+			Size string `json:"size"`
+		} `json:"image"`
+	} `json:"album"`
+}
