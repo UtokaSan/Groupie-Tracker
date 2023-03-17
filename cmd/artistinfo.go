@@ -53,7 +53,6 @@ func InformationArtistAlbum(w http.ResponseWriter, r *http.Request) {
 
 func ArtistInfoGet(w http.ResponseWriter, r *http.Request) {
 	input := getInput(r, 7)
-	fmt.Println(input)
 	getArtist, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + input)
 	if err != nil {
 		http.Error(w, "Failed get Artist", http.StatusInternalServerError)
